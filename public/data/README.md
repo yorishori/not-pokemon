@@ -15,7 +15,7 @@ Every creature, attack, item, NPC, zone, shop and the new-game setup, as JSON. *
 | `secret-names.json` | Player names that grant bonus items. |
 | `car.json` | The Audi: unlock item pairs, locked dialogue, trip sprite and sound, arrival points. |
 | `intro.json` | Title image, handover jingle, the intro coworker and the intro script. |
-| `sounds.json` | Interface sounds: cursor, confirm, cancel, error, money. |
+| `sounds.json` | Interface sounds (cursor, confirm, cancel, error, money) and the battle music (`battleMusic`). |
 
 Validated at boot by the zod schemas in `src/data/schemas/` (one per file), then by cross-reference checks
 (`src/data/cross-refs.ts`) and map checks (`src/data/map-checks.ts`). Any error stops the game on a red screen as
@@ -42,7 +42,7 @@ Validated at boot by the zod schemas in `src/data/schemas/` (one per file), then
 - `car.json`: at least one pair of two item ids; arrival points walkable.
 - `intro.json`: exactly one `handover` step; the coworker's tile and every walked tile walkable; no walk enters the
   other actor's tile.
-- `sounds.json`: all five interface sounds required.
+- `sounds.json`: all five interface sounds and `battleMusic` required.
 
 `public/test-world/data/` is a frozen copy of an early, small content set used by the tests. Do not add real content
 there (see `docs/TESTING.md`).

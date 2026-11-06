@@ -138,7 +138,11 @@ tileset, keep the tile order. `npm run build` repacks the atlas automatically.
 - `npm run placeholders` makes a 0.2 s beep for any missing sound (distinct tones for the interface sounds, a hum
   for the car engine) when `ffmpeg` is installed, or silent files otherwise.
 - Music: one loop per region (`valencia`, `murcia`) plus `interior` for every indoor zone, chosen per zone in
-  `zones.json › music`.
+  `zones.json › music`, and `battle` for every battle (`sounds.json › battleMusic`).
+- The music, the interface sounds, the two dialogue voices, the starter jingle and the car engine are hand-made
+  recordings; the cries and attack sounds are still placeholder beeps.
+- Dialogue voices play every few typed characters (`VOICE_EVERY_CHARS`), so a voice file must be a blip of under
+  0.1 s; longer clips stack up into noise.
 - Audio starts after the first key, click or touch (browser autoplay rules) and pauses when the tab is hidden. The
   player sets music and effects volume in Start › Opciones.
 

@@ -3,5 +3,6 @@
   "confirm": "assets/audio/sfx/ui_confirm.ogg",
   "cancel": "assets/audio/sfx/ui_cancel.ogg",
   "error": "assets/audio/sfx/ui_error.ogg",
-  "money": "assets/audio/sfx/ui_money.ogg"
+  "money": "assets/audio/sfx/ui_money.ogg",
+  "battleMusic": "assets/audio/music/battle.ogg"
 }

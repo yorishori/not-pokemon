@@ -2,7 +2,7 @@
 
 | File | What it is |
 | --- | --- |
-| `music.ts` | `MusicPlayer`: zone music; same file keeps playing, a different one crossfades over `MUSIC_FADE_MS`. Driven by the game loop in `main.ts` (`zone:entered` → `play`). `setGain` (the music volume option, 0–1) scales every track at once. |
+| `music.ts` | `MusicPlayer`: zone music; same file keeps playing, a different one crossfades over `MUSIC_FADE_MS`. Driven by the game loop in `main.ts` (`zone:entered` → `play`; `battle:started` → the battle music, `battle:ended` → back to the zone's). `setGain` (the music volume option, 0–1) scales every track at once. |
 | `camera.ts` | `cameraBounds`: map bounds, or a screen-sized range centred on maps smaller than the screen. |
 | `zone-map.ts` | `drawZoneMap(scene, zone)` (moved out of the Overworld): builds a zone's tilemap (layers `ground` 0, `deco` 1, `above` 3; `collision` hidden), sets the camera's black background and bounds, returns the map's `MapInfo`. Used by the Overworld and the Intro. |
 | `player.ts` | `Player`: the player sprite, driven by `src/logic/movement.ts` (grid steps, tap-to-turn); `halt`, `face` (turn to an enemy that walked up). Sheet `assets/sprites/player.png`: 32 × 32 frames, columns stand/stride, rows down/left/right/up. |

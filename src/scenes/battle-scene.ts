@@ -6,7 +6,8 @@
  *   come from the game state (`src/core/session.ts`).
  * - Layout (512 × 288): opponent sprite top right, its name and HP bar top left; the player's flexymon
  *   (back sprite) bottom left, its name, HP bar and "PS 31/40" bottom right; messages and menus in the
- *   bottom 80 px (the DialogBox for messages).
+ *   bottom 80 px (the DialogBox for messages). Emits `battle:started` when it
+ *   starts (`main.ts` switches to the battle music).
  * - Each player choice goes through `chooseAction()`; the returned `events[]` become view steps
  *   (`src/logic/battle-view.ts`) played in order: message (A to go on), attack sound, shake/flash on a
  *   hit, HP bar animating over `HP_ANIM_MS`, faint / switch. The scene never computes a rule: menus ask
@@ -184,6 +185,7 @@ export class BattleScene extends Phaser.Scene {
     if (data.seed !== undefined) rng.seed(data.seed);
     const gs = gameState();
     this.battle = createBattle(gs.team, data.opponent, data.kind, gs.items);
+    events.emit('battle:started');
 
     this.cameras.main.resetFX();
     this.drawBackdrop();

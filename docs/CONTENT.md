@@ -41,7 +41,7 @@ status bar. Both use the same numbers: x from the left, y from the top, starting
 | Secret names | `public/data/secret-names.json` | `src/data/schemas/secret-names.ts` |
 | The Audi | `public/data/car.json` | `src/data/schemas/car.ts` |
 | Title image and intro script | `public/data/intro.json` | `src/data/schemas/intro.ts` |
-| Interface sounds | `public/data/sounds.json` | `src/data/schemas/sounds.ts` |
+| Interface sounds, battle music | `public/data/sounds.json` | `src/data/schemas/sounds.ts` |
 | Maps | `public/maps/<zone>.tmj` (built from `tools/world/`) | `src/data/tiled.ts`, `src/data/map-checks.ts` |
 | UI strings (menus, battle messages) | `src/i18n/es.json` | missing keys show `⟦key⟧` |
 | Tunable rule numbers | `src/logic/constants.ts` | unit tests |
@@ -362,10 +362,13 @@ the coworker's tile and every walked tile are walkable and that no walk enters t
 
 - **Zone music:** `zones.json › music`, one loop per region (`valencia.ogg`, `murcia.ogg`; every interior plays
   `interior.ogg`). The same file keeps playing across zones; a different one crossfades over 500 ms.
+- **Battle music:** `sounds.json › battleMusic` (`battle.ogg`), the same loop for every battle (wild, NPC, debug).
+  It crossfades in when a battle starts and the zone's music crossfades back when it ends.
 - **Attack sounds** (`attacks.json › sound`), **cries** (`flexymon.json › cry`), **voices** (`npcs.json › voice`),
   the jingle and the car engine are content paths like any other.
 - **Interface sounds:** `sounds.json` has `cursor` (a menu cursor moved), `confirm` (an option chosen), `cancel` (B
-  backed out), `error` (a refused action) and `money` (a purchase, a sale, a reward). All five are required.
+  backed out), `error` (a refused action) and `money` (a purchase, a sale, a reward). All five, plus
+  `battleMusic`, are required.
 - Every path is an OGG with an MP3 of the same name next to it as a fallback.
 - Audio starts only after the first key press, click or touch (a browser rule). Volumes are player options.
 

@@ -1,7 +1,8 @@
 // Checks: a debug battle Portátil vs Ratón can be won, lost and fled; HP bars match the numbers
 // (the scene only plays logic events); B never gets the player stuck in a menu. Plus: the debug menu
 // starts a battle, Huir is greyed out against NPCs, switching (voluntary and forced), Objeto (item list) and B,
-// and the player returns to the same tile with the team's HP kept (after a loss: the Losing rule).
+// and the player returns to the same tile with the team's HP kept (after a loss: the Losing rule). Battles play
+// the battle music and the zone's music comes back afterwards.
 // Battles start through `__E2E__.startBattle(seed, species, kind)`; the team is set with `setTeam`.
 import { test, expect, type Page } from '@playwright/test';
 
@@ -227,8 +228,10 @@ test('a battle can be lost: the Losing rule wakes the player at the office', asy
 
 test('fleeing a wild battle; Huir is greyed out against an NPC', async ({ page }, testInfo) => {
   const errors = await enterOverworld(page);
+  expect(await hook(page, 'currentMusic')).toBe('assets/audio/music/test.ogg');
   await hook(page, 'startBattle', 3);
   await advance(page, ['main']);
+  expect(await hook(page, 'currentMusic')).toBe('assets/audio/music/battle.ogg');
   await press(page, 'ArrowRight');
   await press(page, 'ArrowDown');
   await expect.poll(async () => (await battle(page))?.menu?.cursor).toBe(3);
@@ -237,6 +240,7 @@ test('fleeing a wild battle; Huir is greyed out against an NPC', async ({ page }
   expect(fled.messages).toEqual(['¡Escapas sin problemas!']);
   expect(fled.last!.result).toBe('fled');
   await standing(page, { map: 'test', x: 15, y: 10 });
+  expect(await hook(page, 'currentMusic')).toBe('assets/audio/music/test.ogg');
 
   await hook(page, 'startBattle', 3, 'raton', 'npc');
   const intro = await advance(page, ['main']);

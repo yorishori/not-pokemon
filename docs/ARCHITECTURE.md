@@ -31,7 +31,7 @@ Four rules hold the code together:
 
 | Folder | What lives there | Reference |
 | --- | --- | --- |
-| `src/main.ts` | Creates the game; wires keyboard, touch, music, options, audio unlock, auto-save; exposes the test hooks. | — |
+| `src/main.ts` | Creates the game; wires keyboard, touch, music (zone and battle), options, audio unlock, auto-save; exposes the test hooks. | — |
 | `src/config/` | Phaser config: 512 × 288, pixel art, `FIT` scaling, the scene list. | — |
 | `src/core/` | Infrastructure: `log`, `rng`, typed event bus, Input service, save store, auto-save, live game state (`session.ts`), options, UI sounds, audio unlock, debug flags. | `src/core/README.md` |
 | `src/data/` | Content loader, zod schemas (`schemas/`), cross-reference and map checks, Tiled map parser, asset list, sprite atlas index, which content set to load. | `src/data/README.md` |
@@ -94,7 +94,7 @@ Full per-scene details: `src/scenes/README.md`.
 
 Scenes talk through the typed event bus in `src/core/events.ts`, never by reaching into each other. The
 `GameEvents` interface lists every event and its payload: for example `zone:entered`, `player:moved`,
-`battle:ended`, `save:request`, `save:done`, `overlay:closed`, `options:changed`, `car:ended` and the `debug:*`
+`battle:started`, `battle:ended`, `save:request`, `save:done`, `overlay:closed`, `options:changed`, `car:ended` and the `debug:*`
 commands. To add an event, add it to `GameEvents` with a doc comment.
 
 ## Input

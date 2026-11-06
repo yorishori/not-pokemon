@@ -38,7 +38,7 @@ Exposed when `import.meta.env.DEV` is true or the build has `VITE_E2E=1`:
 | `window.__E2E__.playerTile()` | `{ map, x, y, facing, moving }` in the overworld (tiles as in Tiled), else `null`. |
 | `window.__E2E__.debugLines()` | The Debug overlay's lines while shown (F2; needs a dev build or `?debug=1`), else `null`. |
 | `window.__E2E__.debugMode()` | `'hidden'`, `'info'` or `'menu'` (teleport list); `null` when debugging is disabled. |
-| `window.__E2E__.currentMusic()` | Sound key of the zone music playing or fading in (e.g. `assets/audio/music/test.ogg`), or `null`. |
+| `window.__E2E__.currentMusic()` | Sound key of the music playing or fading in (the zone's, or `sounds.json › battleMusic` during a battle) (e.g. `assets/audio/music/test.ogg`), or `null`. |
 | `window.__E2E__.overworldLocked()` | True while the overworld ignores movement (warp fade, debug menu, an open dialogue or choice box). |
 | `window.__E2E__.npcs()` | NPCs on the current map: `{ id, x, y, facing, moving, talking, state, alert }` (tile = the step's start while moving; `state` `ready`/`cooldown` for enemies, `null` otherwise; `alert` = the "!" bubble shows); `[]` outside the overworld. |
 | `window.__E2E__.dialogue()` | The open dialogue box: `{ page, pages, text (visible), full, typed, more, voicePlays }`, or `null`. |

@@ -98,11 +98,19 @@ function portraitAllowedForTests(): boolean {
 }
 
 // Zone music: crossfades run on the game loop, so they survive Overworld restarts on warps.
+// Battles crossfade to `sounds.json › battleMusic` and back to the zone's music when they end.
 const music = new MusicPlayer((key) => game.sound.add(key, { loop: true }) as unknown as Track);
 game.events.on(Phaser.Core.Events.STEP, (_time: number, delta: number) => music.update(delta));
+let zoneMusic: string | null = null;
 events.on('zone:entered', ({ zone }) => {
   const z = getGameData().zones.get(zone);
-  if (z) music.play(z.music);
+  if (!z) return;
+  zoneMusic = z.music;
+  music.play(z.music);
+});
+events.on('battle:started', () => music.play(getGameData().sounds.battleMusic));
+events.on('battle:ended', () => {
+  if (zoneMusic) music.play(zoneMusic);
 });
 
 // Options: read from `flexymon.options`; the music volume follows the option.
@@ -171,7 +179,7 @@ export interface E2EHooks {
   debugLines(): string[] | null;
   /** Debug overlay mode: `hidden`, `info` or `menu` (teleport list); `null` when debugging is disabled. */
   debugMode(): string | null;
-  /** Sound key of the zone music playing (or fading in), or `null`. */
+  /** Sound key of the music playing (or fading in): the zone's, or the battle music during a battle; or `null`. */
   currentMusic(): string | null;
   /** True while the overworld ignores movement (warp fade, debug menu, dialogue or choice box). */
   overworldLocked(): boolean;

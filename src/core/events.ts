@@ -24,6 +24,8 @@ export interface GameEvents {
   'debug:teleport': { map: string };
   /** Debug command: start a wild battle against one fresh flexymon of this species. */
   'debug:battle': { speciesId: string };
+  /** The BattleScene started (wild, NPC or debug battle); `main.ts` switches to the battle music. */
+  'battle:started': void;
   /** The BattleScene finished; the game state already holds the team after the battle. */
   'battle:ended': { result: 'win' | 'lose' | 'fled' };
   /**
