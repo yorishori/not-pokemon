@@ -81,6 +81,12 @@ Exposed when `import.meta.env.DEV` is true or the build has `VITE_E2E=1`:
 | `window.__E2E__.audio()` | `{ unlockRequested (the first gesture asked to unlock), locked (Phaser's sound manager), contextState (Web Audio context, or `null`) }`. |
 | `window.__E2E__.debugReload()` | The debug menu's last "Recargar datos": `{ state: 'idle' / 'loading' / 'ok' / 'error', errors (formatted lines) }`; `null` when debugging is off. |
 | `window.__E2E__.atlasSprites()` | How many sprites Preload took from the sprite atlas (`0` without one). |
+| `window.__E2E__.enterStory()` | Go through the office's mystery door at once (skipping its dialogue): the overworld asks for a `portal` save, fades out and starts the Story scene. False if the overworld refused (locked, mid-step, a box open, not running). |
+| `window.__E2E__.story()` | The story map while it runs or is paused under an overlay: `{ ui ('idle' / 'walk' / 'talk' / 'menu' / 'overlay' / 'battle' / 'leaving'), stage, at (stop), x, y (player tile), beaten, bossesShown (boss ids drawn), panel (its two lines), dialogue, choice }`, else `null`. |
+| `window.__E2E__.storyTeam()` | The story team picker: `{ required, picks (species ids in order), size, menu, speciesId (under the cursor), confirming }`, else `null`. |
+| `window.__E2E__.storyState()` | The story realm's state: `{ stage, team, loadout, euros, beaten, at }`. |
+| `window.__E2E__.patchStory(patch)` | Merge fields into the story state (e.g. a strong team); saved when the game next saves the story. |
+| `window.__E2E__.savedStory()` | The raw `flexymon.story.v1` text, or `null`. |
 | `window.__E2E__.minimap()` | The minimap in the overworld: `{ zone, shown (player's choice), visible (drawn), available (outdoors with an image), frame { x, y, width, height, scale } (base pixels), mapSize, tile, dot { x, y } (base pixels), dotOn (blink) }`, else `null`. |
 
 To reach the overworld in a test: wait for `preloadComplete()`, then call `quickStart()` until it returns true

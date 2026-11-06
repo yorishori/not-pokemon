@@ -33,8 +33,8 @@ describe('make-world', () => {
     const ts = PNG.sync.read(drawWorldTileset());
     expect(EXTRA_FIRST).toBe(32 + VARIANT_TILES.length);
     expect(TILE_ID.get('x:soil')).toBe(XT.soil);
-    expect(TILE_ID.get(EXTRA_TILES.at(-1)!.key)).toBe(XT.wave);
-    for (let id = EXTRA_FIRST; id <= XT.wave; id += 1) {
+    expect(TILE_ID.get(EXTRA_TILES.at(-1)!.key)).toBe(XT.storyNode);
+    for (let id = EXTRA_FIRST; id <= XT.storyNode; id += 1) {
       const ox = (id % 8) * 32;
       const oy = Math.floor(id / 8) * 32;
       let opaque = 0;
@@ -51,6 +51,8 @@ describe('make-world', () => {
     expect(props(XT.sea)).toEqual(['solid']);
     expect(props(XT.onion)).toEqual(['encounter']);
     expect(props(XT.paseo)).toEqual([]);
+    expect(props(XT.mysteryDoor)).toEqual(['solid']);
+    expect(props(XT.storyNode)).toEqual([]);
   });
 
   it('builds one-way links (metro, train) to any tile of another map', () => {
@@ -135,7 +137,7 @@ describe('make-world', () => {
 
   it('rejects uneven rows and unknown characters', () => {
     expect(() => checkLayout('x', ['..', '.'])).toThrow('x.txt: row 1 has 1 tiles, expected 2');
-    expect(() => checkLayout('x', ['.?'])).toThrow('x.txt: unknown tile "?" at (1, 0)');
+    expect(() => checkLayout('x', ['.`'])).toThrow('x.txt: unknown tile "`" at (1, 0)');
     expect(() => checkLayout('x', [])).toThrow('x.txt: empty layout');
     expect(() => findDoormat('room', ['###', '#=#', '###'])).toThrow(/doormat/);
   });
@@ -197,10 +199,22 @@ describe('make-world', () => {
         (id) => layouts[id]!,
       ),
     ).toThrow(/needs "Aa"/);
+    expect(() =>
+      buildWorld({ maps: { out: { ground: 'grass', portal: { x: 0, y: 0 } } } }, (id) => layouts[id]!),
+    ).toThrow(/the portal at \(0, 0\) needs "\?"/);
+    const portal = buildWorld({ maps: { out: { ground: 'grass', portal: { x: 1, y: 0 } } } }, () => ['.?']);
+    expect(portal.get('out')!.warps[0]).toMatchObject({
+      x: 1,
+      y: 0,
+      properties: [
+        { name: 'portal', value: true },
+        { name: 'trigger', value: 'action' },
+      ],
+    });
   });
 
   it('the shipped layouts build, and the tool never overwrites without --force', () => {
-    expect(buildWorld(readWorld()).size).toBe(19);
+    expect(buildWorld(readWorld()).size).toBe(20);
     expect(makeWorld(false)).toEqual([]);
   });
 });

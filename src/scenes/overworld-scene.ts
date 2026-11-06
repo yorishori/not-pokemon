@@ -64,6 +64,10 @@
  *   (`car = valencia`), "¿Subir al Audi?" stays on screen with Sí / No (B = No). Sí locks input, fades out,
  *   launches the CarScene and sleeps; on `car:ended` this scene restarts at `car.json › toMurcia` /
  *   `toValencia`, fading in.
+ * - The mystery door: an `action` warp with `portal = true` (the office's back wall). A while facing it shows
+ *   `story.json › door`, then "¿Cruzar la puerta?" with Sí / No (B = No). Sí asks for an auto-save (`portal`), fades
+ *   out and starts the StoryScene in place of this scene (the story realm has its own save; coming back restarts
+ *   this scene on the tile in front of the door).
  * - Emits `zone:entered` once built (main.ts plays the zone music) and `player:moved` after placing
  *   the player, after every step and after every turn on the spot; on entry it then asks for an auto-save (`save:request` `map`).
  */
@@ -108,6 +112,7 @@ import { CAR_SCENE, type CarSceneData } from './car-scene';
 import { SHOP_SCENE, type ShopSceneData } from './shop-scene';
 import { STORAGE_SCENE } from './storage-scene';
 import { MENU_SCENE } from './menu-scene';
+import { STORY_SCENE } from './story-scene';
 import { Player } from '../world/player';
 
 /** Scene key of {@link OverworldScene}. */
@@ -311,6 +316,7 @@ export class OverworldScene extends Phaser.Scene {
       }
       const warp = warpAt(this.info.warps, s.x + d.x, s.y + d.y, 'action');
       if (warp?.car) this.useCar(warp.car);
+      else if (warp?.portal) this.usePortal();
       else if (warp) this.warpTo(warpDestination(warp, s));
     }
   }
@@ -536,6 +542,45 @@ export class OverworldScene extends Phaser.Scene {
         if (i === 0) this.drive(to);
       },
     });
+  }
+
+  /**
+   * The mystery door, A pressed facing it: `story.json › door`, then "¿Cruzar la puerta?" with Sí / No (B = No);
+   * Sí goes to the story realm ({@link enterStory}).
+   */
+  private usePortal(): void {
+    const dialog = this.dialog;
+    const choice = this.choice;
+    if (!dialog || !choice) return;
+    log('Overworld: at the mystery door');
+    dialog.open(getGameData().story.door, {
+      onClose: () => {
+        dialog.open([t('story.door_ask')], { hold: true });
+        choice.open([t('story.yes'), t('story.no')], {
+          onChoose: (i) => {
+            dialog.dismiss();
+            if (i === 0) this.enterStory();
+          },
+        });
+      },
+    });
+  }
+
+  /**
+   * Go through the mystery door: save the main game (`save:request` `portal`; the player stays in front of the
+   * door), fade out and start the StoryScene in place of this scene. False if refused (locked, mid-step, a box
+   * open, not running).
+   */
+  enterStory(): boolean {
+    if (!this.player || this.locked || this.engagement || this.player.state.step || !this.sys.isActive())
+      return false;
+    this.locked = true;
+    log('Overworld: through the mystery door');
+    events.emit('save:request', { reason: 'portal' });
+    const cam = this.cameras.main;
+    cam.fadeOut(WARP_FADE_MS, 0, 0, 0);
+    cam.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.start(STORY_SCENE));
+    return true;
   }
 
   /** Lock input, fade out, then launch the CarScene and sleep until `car:ended`. */

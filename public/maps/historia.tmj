@@ -1,0 +1,3560 @@
+{
+ "compressionlevel": -1,
+ "type": "map",
+ "version": "1.10",
+ "tiledversion": "1.11.0",
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "infinite": false,
+ "width": 32,
+ "height": 16,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "nextlayerid": 8,
+ "nextobjectid": 2,
+ "layers": [
+  {
+   "id": 1,
+   "name": "ground",
+   "type": "tilelayer",
+   "x": 0,
+   "y": 0,
+   "width": 32,
+   "height": 16,
+   "opacity": 1,
+   "visible": true,
+   "data": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    104,
+    1,
+    1,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    129,
+    97,
+    173,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    129,
+    15,
+    173,
+    173,
+    1,
+    138,
+    98,
+    118,
+    98,
+    98,
+    98,
+    108,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    147,
+    1,
+    147,
+    1,
+    129,
+    15,
+    173,
+    173,
+    1,
+    133,
+    103,
+    215,
+    133,
+    4,
+    4,
+    123,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    137,
+    112,
+    97,
+    112,
+    97,
+    2,
+    15,
+    173,
+    173,
+    1,
+    153,
+    113,
+    118,
+    113,
+    113,
+    123,
+    215,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    162,
+    1,
+    162,
+    1,
+    152,
+    2,
+    15,
+    173,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    129,
+    15,
+    173,
+    173,
+    1,
+    1,
+    1,
+    1,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    114,
+    114,
+    114,
+    114,
+    226,
+    114,
+    114,
+    109,
+    15,
+    173,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    152,
+    173,
+    173,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    173,
+    173
+   ]
+  },
+  {
+   "id": 2,
+   "name": "deco",
+   "type": "tilelayer",
+   "x": 0,
+   "y": 0,
+   "width": 32,
+   "height": 16,
+   "opacity": 1,
+   "visible": true,
+   "data": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    5,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    7,
+    0,
+    5,
+    0,
+    5,
+    0,
+    219,
+    219,
+    219,
+    219,
+    219,
+    0,
+    0,
+    212,
+    212,
+    0,
+    212,
+    212,
+    0,
+    0,
+    38,
+    39,
+    39,
+    39,
+    40,
+    0,
+    0,
+    0,
+    221,
+    221,
+    221,
+    0,
+    0,
+    0,
+    5,
+    0,
+    5,
+    0,
+    189,
+    190,
+    191,
+    192,
+    189,
+    0,
+    0,
+    212,
+    212,
+    212,
+    212,
+    212,
+    0,
+    0,
+    79,
+    80,
+    80,
+    81,
+    82,
+    0,
+    0,
+    221,
+    221,
+    221,
+    221,
+    221,
+    0,
+    0,
+    5,
+    0,
+    5,
+    0,
+    189,
+    189,
+    189,
+    189,
+    189,
+    0,
+    0,
+    212,
+    212,
+    212,
+    212,
+    212,
+    0,
+    0,
+    87,
+    32,
+    32,
+    88,
+    89,
+    0,
+    0,
+    0,
+    221,
+    221,
+    221,
+    0,
+    0,
+    0,
+    5,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    184,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    183,
+    183,
+    0,
+    183,
+    183,
+    0,
+    7,
+    0,
+    0,
+    184,
+    0,
+    0,
+    7,
+    0,
+    0,
+    183,
+    0,
+    183,
+    0,
+    0,
+    7,
+    0,
+    0,
+    184,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    47,
+    48,
+    48,
+    48,
+    49,
+    0,
+    0,
+    211,
+    211,
+    220,
+    211,
+    211,
+    0,
+    0,
+    205,
+    0,
+    205,
+    0,
+    205,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    214,
+    214,
+    214,
+    214,
+    214,
+    0,
+    0,
+    210,
+    210,
+    210,
+    210,
+    210,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    214,
+    214,
+    214,
+    214,
+    214,
+    0,
+    0,
+    210,
+    210,
+    210,
+    210,
+    210,
+    0,
+    0,
+    0,
+    206,
+    0,
+    206,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    7,
+    0,
+    0,
+    183,
+    0,
+    183,
+    0,
+    0,
+    7,
+    0,
+    0,
+    184,
+    0,
+    0,
+    7,
+    0,
+    0,
+    183,
+    0,
+    183,
+    0,
+    0,
+    7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 3,
+   "name": "collision",
+   "type": "tilelayer",
+   "x": 0,
+   "y": 0,
+   "width": 32,
+   "height": 16,
+   "opacity": 1,
+   "visible": false,
+   "data": [
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 4,
+   "name": "above",
+   "type": "tilelayer",
+   "x": 0,
+   "y": 0,
+   "width": 32,
+   "height": 16,
+   "opacity": 1,
+   "visible": true,
+   "data": [
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 5,
+   "name": "warps",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": []
+  },
+  {
+   "id": 6,
+   "name": "encounters",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": []
+  },
+  {
+   "id": 7,
+   "name": "spawns",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 1,
+     "name": "default",
+     "type": "",
+     "x": 128,
+     "y": 192,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "point": true
+    }
+   ]
+  }
+ ],
+ "tilesets": [
+  {
+   "firstgid": 1,
+   "name": "world",
+   "image": "../assets/tilesets/world.png",
+   "imagewidth": 256,
+   "imageheight": 928,
+   "tilewidth": 32,
+   "tileheight": 32,
+   "tilecount": 232,
+   "columns": 8,
+   "margin": 0,
+   "spacing": 0,
+   "tiles": [
+    {
+     "id": 2,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 3,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 12,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 13,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 15,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 16,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 17,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 20,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 21,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 22,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 23,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 24,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 27,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 28,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 29,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 30,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 31,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 32,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 33,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 34,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 35,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 36,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 37,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 38,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 39,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 40,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 41,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 42,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 43,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 44,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 45,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 46,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 47,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 48,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 49,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 50,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 51,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 52,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 53,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 54,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 55,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 56,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 57,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 58,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 59,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 60,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 61,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 62,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 63,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 64,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 65,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 66,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 67,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 68,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 69,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 70,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 71,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 72,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 73,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 74,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 75,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 76,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 77,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 78,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 79,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 80,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 81,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 82,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 83,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 84,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 85,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 86,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 87,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 88,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 90,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 91,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 92,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 97,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 102,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 107,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 112,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 117,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 122,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 127,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 132,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 137,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 142,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 147,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 152,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 157,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 162,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 167,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 169,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 170,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 171,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 172,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 180,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 182,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 183,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 184,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 185,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 186,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 187,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 188,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 189,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 190,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 191,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 192,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 193,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 194,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 195,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 197,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 198,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 199,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 200,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 201,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 202,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 203,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 204,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 206,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 207,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 209,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 210,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 211,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 212,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 213,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 214,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 216,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 217,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 218,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 219,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 220,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 221,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 222,
+     "properties": [
+      {
+       "name": "encounter",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 223,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 224,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

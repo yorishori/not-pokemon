@@ -9,6 +9,7 @@ import { secretNamesFileSchema } from './secret-names';
 import { shopsFileSchema } from './shops';
 import { soundsFileSchema } from './sounds';
 import { startFileSchema } from './start';
+import { storyFileSchema } from './story';
 import { zonesFileSchema } from './zones';
 
 /** File name (inside `public/data/`) → schema. The order is the load and report order. */
@@ -24,6 +25,7 @@ export const FILE_SCHEMAS = {
   'car.json': carFileSchema,
   'intro.json': introFileSchema,
   'sounds.json': soundsFileSchema,
+  'story.json': storyFileSchema,
 } as const;
 
 /** Name of one content file. */
@@ -43,4 +45,5 @@ export * from './secret-names';
 export * from './shops';
 export * from './sounds';
 export * from './start';
+export * from './story';
 export * from './zones';

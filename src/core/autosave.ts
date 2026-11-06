@@ -3,7 +3,8 @@
  * announced on the event bus as `save:request`:
  * - `map` — the overworld entered a map (warp, respawn, the first map after the title);
  * - `battle` — a battle ended (after the Losing rule or the reward was applied);
- * - `shop` — a shop closed; `healer` — the office healer healed the team; `menu` — the Start menu closed.
+ * - `shop` — a shop closed; `healer` — the office healer healed the team; `menu` — the Start menu closed;
+ * - `portal` — the player goes through the mystery door to the story realm (which keeps its own save).
  * Each written save emits `save:done` (the HUD shows "Guardando…" for `SAVE_ICON_MS`).
  *
  * Other rules:

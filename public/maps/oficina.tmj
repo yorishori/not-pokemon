@@ -11,7 +11,7 @@
  "tilewidth": 32,
  "tileheight": 32,
  "nextlayerid": 8,
- "nextobjectid": 3,
+ "nextobjectid": 4,
  "layers": [
   {
    "id": 1,
@@ -375,7 +375,7 @@
     203,
     203,
     203,
-    217,
+    225,
     217,
     190,
     191,
@@ -1344,6 +1344,29 @@
        "value": "step"
       }
      ]
+    },
+    {
+     "id": 2,
+     "name": "puerta_misteriosa",
+     "type": "",
+     "x": 256,
+     "y": 32,
+     "width": 32,
+     "height": 32,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "portal",
+       "type": "bool",
+       "value": true
+      },
+      {
+       "name": "trigger",
+       "type": "string",
+       "value": "action"
+      }
+     ]
     }
    ]
   },
@@ -1369,7 +1392,7 @@
    "visible": true,
    "objects": [
     {
-     "id": 2,
+     "id": 3,
      "name": "default",
      "type": "",
      "x": 320,
@@ -1389,10 +1412,10 @@
    "name": "world",
    "image": "../assets/tilesets/world.png",
    "imagewidth": 256,
-   "imageheight": 896,
+   "imageheight": 928,
    "tilewidth": 32,
    "tileheight": 32,
-   "tilecount": 224,
+   "tilecount": 232,
    "columns": 8,
    "margin": 0,
    "spacing": 0,
@@ -2759,6 +2782,16 @@
     },
     {
      "id": 223,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 224,
      "properties": [
       {
        "name": "solid",

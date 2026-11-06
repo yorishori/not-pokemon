@@ -19,7 +19,8 @@ export interface AssetList {
 
 /**
  * Collect sprites (flexymon, items, NPCs, title + coworker, the minimap of every outdoor zone, the Audi)
- * and sounds (cries, attacks, voices, zone music, jingle, engine, interface sounds).
+ * and sounds (cries, attacks, voices, zone music, jingle, engine, interface sounds), plus the story bosses' sprites and
+ * voices and the story music.
  */
 export function collectAssets(data: GameData): AssetList {
   const images = new Set<string>();
@@ -45,6 +46,12 @@ export function collectAssets(data: GameData): AssetList {
   // The car trip scene.
   images.add(data.car.sprite);
   sounds.add(data.car.sound);
+  // The story realm: its music and every boss's sprite and voice.
+  sounds.add(data.story.music);
+  for (const boss of data.story.bosses) {
+    images.add(boss.sprite);
+    sounds.add(boss.voice);
+  }
   // The interface sounds (cursor, confirm, cancel, error, money).
   for (const path of Object.values(data.sounds)) sounds.add(path);
 

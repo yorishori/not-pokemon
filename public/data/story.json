@@ -1,0 +1,395 @@
+{
+  "map": "historia",
+  "music": "assets/audio/music/valencia.ogg",
+  "budget": 1500,
+  "teamSize": 4,
+  "shop": ["cafe", "bocadillo", "redbull", "ibuprofeno"],
+  "door": ["Una puerta que no estaba aquí ayer. Tiene un interrogante pintado y se oye música al otro lado."],
+  "welcome": [
+    "Has cruzado la puerta misteriosa. Bienvenido al Modo historia.",
+    "Aquí no hay hierba alta ni nada que explorar: solo un camino y un jefe esperando en cada parada.",
+    "Primero elige tu equipo y gasta el presupuesto en objetos. Tras cada combate tu equipo se cura y tus objetos se reponen.",
+    "Vuelve a la oficina cuando quieras para cambiar de equipo o de objetos: al vender te devuelven lo que costó.",
+    "Lo que pase aquí se queda aquí: tus flexymon y objetos del juego normal ni entran ni salen."
+  ],
+  "victory": [
+    "¡Has vencido a todos los jefes del camino!",
+    "Puedes volver a retar a cualquiera de ellos, o empezar una historia nueva desde la oficina."
+  ],
+  "office": {
+    "place": "La oficina",
+    "x": 4,
+    "y": 6,
+    "path": []
+  },
+  "bosses": [
+    {
+      "id": "guardiana_torres",
+      "name": "Guardiana",
+      "place": "Torres de Serranos",
+      "sprite": "assets/sprites/npcs/guardiana.png",
+      "voice": "assets/audio/sfx/voice_high.ogg",
+      "x": 11,
+      "y": 6,
+      "path": [],
+      "stand": {
+        "x": 11,
+        "y": 5,
+        "facing": "down"
+      },
+      "dialogue": [
+        "¡Alto! Nadie cruza las Torres de Serranos sin enseñarme sus flexymon.",
+        "Veamos si tu equipo aguanta un asedio."
+      ],
+      "defeatDialogue": ["Las puertas de la ciudad están abiertas para ti. Sigue el camino."],
+      "team": [
+        {
+          "id": "raton"
+        },
+        {
+          "id": "teclado"
+        }
+      ]
+    },
+    {
+      "id": "frutera_mercado",
+      "name": "Frutera",
+      "place": "Mercado Central",
+      "sprite": "assets/sprites/npcs/frutera.png",
+      "voice": "assets/audio/sfx/voice_high.ogg",
+      "x": 18,
+      "y": 6,
+      "path": [],
+      "stand": {
+        "x": 18,
+        "y": 5,
+        "facing": "down"
+      },
+      "dialogue": ["¡Naranjas, chufas y flexymon frescos!", "Aquí se regatea con combates. ¿Hacemos trato?"],
+      "defeatDialogue": ["Vaya género llevas. Te has ganado el paso."],
+      "team": [
+        {
+          "id": "cafetera",
+          "bonus": {
+            "attack": 2
+          }
+        },
+        {
+          "id": "grapadora",
+          "bonus": {
+            "attack": 2
+          }
+        },
+        {
+          "id": "movil",
+          "bonus": {
+            "attack": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallera_toros",
+      "name": "Fallera",
+      "place": "Plaza de Toros",
+      "sprite": "assets/sprites/npcs/fallera.png",
+      "voice": "assets/audio/sfx/voice_high.ogg",
+      "x": 25,
+      "y": 6,
+      "path": [],
+      "stand": {
+        "x": 25,
+        "y": 5,
+        "facing": "down"
+      },
+      "dialogue": ["¡Que empiece la mascletà!", "Mis flexymon tienen más pólvora que una noche de Fallas."],
+      "defeatDialogue": ["Me has dejado sin traca. ¡Sigue hacia la playa!"],
+      "team": [
+        {
+          "id": "impresora",
+          "bonus": {
+            "hp": 5,
+            "defense": 2
+          }
+        },
+        {
+          "id": "monitor",
+          "bonus": {
+            "hp": 5,
+            "defense": 2
+          }
+        },
+        {
+          "id": "silla",
+          "bonus": {
+            "hp": 5,
+            "defense": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "paellero_playa",
+      "name": "Paellero",
+      "place": "Playa de la Malvarrosa",
+      "sprite": "assets/sprites/npcs/paellero.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 25,
+      "y": 13,
+      "path": [
+        {
+          "x": 28,
+          "y": 6
+        },
+        {
+          "x": 28,
+          "y": 13
+        }
+      ],
+      "stand": {
+        "x": 25,
+        "y": 12,
+        "facing": "down"
+      },
+      "dialogue": ["La paella no se toca hasta que esté el socarrat.", "Y tú no pasas hasta que me ganes."],
+      "defeatDialogue": ["Bien jugado. Ni una gamba te has dejado."],
+      "team": [
+        {
+          "id": "cafetera",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 2,
+            "speed": 2
+          }
+        },
+        {
+          "id": "movil",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 2,
+            "speed": 2
+          }
+        },
+        {
+          "id": "grapadora",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 2,
+            "speed": 2
+          }
+        },
+        {
+          "id": "impresora",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 2,
+            "speed": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "cientifica_cac",
+      "name": "Científica",
+      "place": "Ciudad de las Artes y las Ciencias",
+      "sprite": "assets/sprites/npcs/cientifica.png",
+      "voice": "assets/audio/sfx/voice_high.ogg",
+      "x": 18,
+      "y": 13,
+      "path": [],
+      "stand": {
+        "x": 18,
+        "y": 12,
+        "facing": "down"
+      },
+      "dialogue": [
+        "Hipótesis: tu equipo no supera mi experimento.",
+        "Procedamos a comprobarlo empíricamente."
+      ],
+      "defeatDialogue": ["Hipótesis refutada. Apuntaré tus resultados en mi cuaderno."],
+      "team": [
+        {
+          "id": "portatil",
+          "bonus": {
+            "hp": 10,
+            "attack": 4,
+            "defense": 3,
+            "speed": 2
+          }
+        },
+        {
+          "id": "monitor",
+          "bonus": {
+            "hp": 10,
+            "attack": 4,
+            "defense": 3,
+            "speed": 2
+          }
+        },
+        {
+          "id": "router",
+          "bonus": {
+            "hp": 5,
+            "attack": 2,
+            "defense": 2
+          }
+        },
+        {
+          "id": "proyector",
+          "bonus": {
+            "hp": 5,
+            "attack": 2,
+            "defense": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "jefa_estacion",
+      "name": "Jefa de estación",
+      "place": "Estación del Norte",
+      "sprite": "assets/sprites/npcs/jefa_estacion.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 11,
+      "y": 13,
+      "path": [],
+      "stand": {
+        "x": 11,
+        "y": 12,
+        "facing": "down"
+      },
+      "dialogue": [
+        "Último aviso para los viajeros con destino a la Albufera.",
+        "Solo suben al tren quienes me venzan."
+      ],
+      "defeatDialogue": ["Billete validado. Tu tren sale por la vía del final del camino."],
+      "team": [
+        {
+          "id": "servidor",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 3,
+            "speed": 2
+          }
+        },
+        {
+          "id": "impresora",
+          "bonus": {
+            "hp": 15,
+            "attack": 6,
+            "defense": 4,
+            "speed": 3
+          }
+        },
+        {
+          "id": "router",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 3,
+            "speed": 2
+          }
+        },
+        {
+          "id": "proyector",
+          "bonus": {
+            "hp": 8,
+            "attack": 3,
+            "defense": 3,
+            "speed": 2
+          }
+        },
+        {
+          "id": "grapadora",
+          "bonus": {
+            "hp": 15,
+            "attack": 6,
+            "defense": 4,
+            "speed": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "barquera_albufera",
+      "name": "Barquera",
+      "place": "La Albufera",
+      "sprite": "assets/sprites/npcs/barquera.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 4,
+      "y": 13,
+      "path": [],
+      "stand": {
+        "x": 4,
+        "y": 12,
+        "facing": "down"
+      },
+      "dialogue": [
+        "Al atardecer, la Albufera se queda en silencio.",
+        "Has llegado al final del camino. Demuéstrame que mereces la última barca."
+      ],
+      "defeatDialogue": ["El lago es tuyo. Pocas veces he visto un equipo así."],
+      "team": [
+        {
+          "id": "servidor",
+          "bonus": {
+            "hp": 15,
+            "attack": 6,
+            "defense": 5,
+            "speed": 4
+          }
+        },
+        {
+          "id": "router",
+          "bonus": {
+            "hp": 15,
+            "attack": 6,
+            "defense": 5,
+            "speed": 4
+          }
+        },
+        {
+          "id": "proyector",
+          "bonus": {
+            "hp": 15,
+            "attack": 6,
+            "defense": 5,
+            "speed": 4
+          }
+        },
+        {
+          "id": "cafetera",
+          "bonus": {
+            "hp": 20,
+            "attack": 8,
+            "defense": 6,
+            "speed": 5
+          }
+        },
+        {
+          "id": "movil",
+          "bonus": {
+            "hp": 20,
+            "attack": 8,
+            "defense": 6,
+            "speed": 5
+          }
+        },
+        {
+          "id": "silla",
+          "bonus": {
+            "hp": 20,
+            "attack": 8,
+            "defense": 6,
+            "speed": 5
+          }
+        }
+      ]
+    }
+  ]
+}

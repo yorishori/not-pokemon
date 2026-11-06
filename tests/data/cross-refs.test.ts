@@ -113,4 +113,27 @@ describe('cross-references (one test per rule)', () => {
       errorsAfter((f) => f['secret-names.json'].push({ ...f['secret-names.json'][0], name: 'pacoo' })),
     ).toEqual([]);
   });
+
+  it('the story realm: board map, shop items, boss ids and teams', () => {
+    expect(errorsAfter((f) => (f['story.json'].map = 'luna'))).toEqual([
+      'story.json › map › unknown map "luna"',
+    ]);
+    expect(
+      errorsAfter((f) => f['story.json'].shop.push('chupito', 'llaves_audi', 'regleta', 'cafe')),
+    ).toEqual([
+      'story.json › shop[2] › unknown item "chupito"',
+      'story.json › shop[3] › item "llaves_audi" has price null and cannot be sold',
+      'story.json › shop[4] › item "regleta" cannot be used in battle',
+      'story.json › shop › lists an item twice',
+    ]);
+    expect(errorsAfter((f) => (f['story.json'].teamSize = 4))).toEqual([
+      'story.json › teamSize › needs 4 different flexymon but only 3 exist',
+    ]);
+    expect(errorsAfter((f) => (f['story.json'].bosses[1].id = 'jefe_uno'))).toEqual([
+      'story.json › bosses[1].id › duplicate id "jefe_uno"',
+    ]);
+    expect(errorsAfter((f) => (f['story.json'].bosses[0].team[0].id = 'monitor'))).toEqual([
+      'story.json › bosses[0].team[0].id › unknown flexymon "monitor"',
+    ]);
+  });
 });

@@ -1,7 +1,8 @@
 # Maps: editing and expanding the world
 
 The world is a set of **zones**. Each zone is one map file `public/maps/<zone>.tmj` (Tiled JSON, 32 × 32 px tiles)
-plus one entry in `public/data/zones.json`. Zones are joined by **warps**: doors, map edges, the metro and the train, and the Audi.
+plus one entry in `public/data/zones.json`. Zones are joined by **warps**: doors, map edges, the metro and the train, and the Audi. One more zone, the story
+board `historia`, is not joined to anything: the office's mystery door opens it (see *The story map*).
 
 ## Two ways to edit maps
 
@@ -56,7 +57,7 @@ Interiors (smaller than the screen, centred on black):
 
 | Zone | Size | Contains |
 | --- | --- | --- |
-| `oficina` | 22 × 14 | Open plan in the company's navy / light blue / white with an orange accent: desk islands, a glass meeting room, sofa corner, coffee bar, wall screens, the logo on the back wall. The new game starts on its doormat (10, 13); healer (5, 12) by the reception counter, storage (19, 9), two coworkers; the intro coworker walks from (10, 5) to (10, 9) and back up to (10, 2). |
+| `oficina` | 22 × 14 | Open plan in the company's navy / light blue / white with an orange accent: desk islands, a glass meeting room, sofa corner, coffee bar, wall screens, the logo on the back wall, and the mystery door (`?`, (8, 1)) to the story realm. The new game starts on its doormat (10, 13); healer (5, 12) by the reception counter, storage (19, 9), two coworkers; the intro coworker walks from (10, 5) to (10, 9) and back up to (10, 2). |
 | `metro_alboraya`, `metro_xativa` | 12 × 8 | A train on the top row (its door `j` is the link to the other station), platform `P`, a ticket clerk. |
 | `estacion_norte` | 17 × 9 | Orange mosaic hall, the train to El Pueblo, a ticket clerk. |
 | `estacion_pueblo` | 10 × 7 | The train back to the Estació del Nord. |
@@ -132,6 +133,7 @@ Objects, drawn over the map's base ground (`world.json › ground`). All of them
 | `&` | modern desk | | `$` | coffee bar |
 | `[` | wall screen | | `!` | beach umbrella |
 | `-` | towel (walkable) | | `\|` | bench |
+| `?` | the mystery door (needs a `portal` entry) | | `{` | a stop on the story map's path (walkable ground) |
 
 The tool picks the right look-alike **variant** of each tile from its neighbours (roof ridges and eaves, one of four
 roof colours per building, facade windows, cliff faces, grass borders, shore foam…). Variants keep their base tile's
@@ -149,6 +151,7 @@ roof colours per building, facade windows, cliff faces, grass borders, shore foa
 | `doors` | `[{ "x", "y", "to" }]`: a `D` tile at (x, y) leading to interior `to`. The way back is generated. |
 | `edges` | `[{ "side", "from", "to", "map" }]`: walking off `side` (`north` / `south` / `east` / `west`) over columns (or rows) `from`–`to` enters `map`, keeping the column (or row). The reverse warp on `map` is generated. |
 | `car` | `{ "x", "y", "to" }`: the Audi (`Aa` at (x, y)) with an action warp; `to` is `murcia` or `valencia`. |
+| `portal` | `{ "x", "y" }`: the mystery door (`?` at (x, y)) with an action warp carrying `portal = true`; it opens the story realm. |
 | `links` | `[{ "x", "y", "to", "toX", "toY", "facing" }]`: a one-way step warp from (x, y) to tile (toX, toY) of map `to`. Used for the metro and the train: the `j` train door of one station to the platform tile under the other station's train door. Not mirrored: the other station lists its own link back. |
 | `encounters` | `[{ "name", "x", "y", "width", "height", "group", "mode" }]`: encounter rectangles (see below). |
 
@@ -268,7 +271,8 @@ Open `public/maps/<zone>.tmj` in Tiled. The format the game reads (`src/data/til
   player's column or row, as edge warps do), `toFacing` (optional) and `trigger` (`step`: fires when a step ends
   inside it, for doors and edges; `action`: press A facing it). A step warp may sit one tile outside the map: those
   off-map tiles become walkable, so walking off the edge enters it. Every door needs a matching warp back on the
-  other map. A car warp has the string property `car` and `trigger = action`, and no `toMap` / `toX` / `toY`.
+  other map. A car warp has the string property `car` and `trigger = action`, and no `toMap` / `toX` / `toY`. The
+  mystery door is an `action` warp with the bool property `portal = true` and no `toMap` either.
 - Object layer `encounters`: rectangles with string properties `group` and `mode`.
 
 Boot checks (any error stops on the red screen): every warp targets an existing zone and only walkable tiles; every
@@ -279,14 +283,28 @@ To make a brand-new map in Tiled: create it with the settings above, add the til
 tileset from an existing map so the tile properties come along), save it as `public/maps/<zone>.tmj`, then add the
 zone to `zones.json`. Don't add it to `tools/world/world.json`, or `npm run world -- --force` will overwrite it.
 
+## The story map
+
+`historia` (32 × 16, `tools/world/historia.txt`) is the story realm's board, drawn with the same tileset as the world:
+a sandy path (`:`) with round stone stops (`{`) in two rows joined on the right, each stop under a landmark built
+from world tiles. Top row, left to right: the office (4, 6), the Torres de Serranos (11, 6), the Mercado Central
+(18, 6), the bullring (25, 6); down the right side by the sea; bottom row, right to left: the Malvarrosa beach
+(25, 13), the Ciutat de les Arts (18, 13), the Estació del Nord (11, 13) and the Albufera lake (4, 13). Each boss
+stands on the tile above its stop. It is a zone in `zones.json` (so it loads and is checked like any map) but has no
+warps: the StoryScene draws it (the debug teleport can still put the overworld player on it, to look at the map).
+
+The stops, the path between them and where each boss stands are not in the map but in `story.json`
+([CONTENT.md](CONTENT.md) › The story realm), checked at boot against the map: every stop and every tile of every leg
+must be walkable. To add a stop, draw its landmark and a `{` on the path, then add the boss to `story.json`.
+
 ## The world tileset
 
 `public/assets/tilesets/world.png`: 8 columns of 32 px tiles, drawn by `npm run world` from `tools/art/tiles.ts`
 and `tools/world-tiles.ts`. Ids 0–31 are the base tiles; then the look-alike variants with their base tile's
 properties (order: `tools/art/tiles.ts › VARIANT_TILES`); then the extra world tiles (`tools/world-tiles.ts ›
 XT`, ids computed after the variants: huerta crops, sea, industrial and station tiles, the office, the Turia park,
-the CAC…), each its own base: `encounter` on the crops and dry scrub, `solid` on every building, tree, water and
-furniture tile.
+the CAC, the mystery door and the story map's stop…), each its own base: `encounter` on the crops and dry scrub,
+`solid` on every building, tree, water and furniture tile (and the mystery door).
 
 | Id | Tile | | Id | Tile |
 | --- | --- | --- | --- | --- |

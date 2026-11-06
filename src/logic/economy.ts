@@ -1,6 +1,7 @@
 /**
  * Euros, rewards, shops and the loss penalty (docs/GAME-RULES.md › Euros and shops, Enemy NPCs, Losing).
- * Euros are whole numbers 0–`EUROS_MAX`. Buying checks money first; selling gives `floor(price / 2)`.
+ * Euros are whole numbers 0–`EUROS_MAX`. Buying checks money first; selling gives `floor(price / 2)` (the story
+ * realm's shop gives back the full price, {@link refundPrice}).
  * Key items and `price: null` items cannot be bought or sold.
  */
 import type { Rng } from '../core/rng';
@@ -46,6 +47,15 @@ export function sellPrice(item: Item): number | null {
   return Math.floor(item.price / 2);
 }
 
+/**
+ * The story realm's sell price: the full buy price, so the budget never shrinks; `null` for key items and
+ * `price: null` items.
+ */
+export function refundPrice(item: Item): number | null {
+  if (item.effect.type === 'key' || item.price === null) return null;
+  return item.price;
+}
+
 /** Most of `item` the player can buy now: limited by money and bag room (0 if not for sale). */
 export function maxBuyQuantity(euros: number, items: Readonly<Inventory>, item: Item): number {
   const price = buyPrice(item);
@@ -65,9 +75,18 @@ export function buy(euros: number, items: Readonly<Inventory>, item: Item, qty: 
   return { ok: true, euros: euros - cost, items: addItem(items, item.id, qty).items };
 }
 
-/** Sell `qty` of `item` for `floor(price / 2)` each. */
-export function sell(euros: number, items: Readonly<Inventory>, item: Item, qty: number): ShopResult {
-  const price = sellPrice(item);
+/**
+ * Sell `qty` of `item` for `priceOf(item)` each: `floor(price / 2)` by default ({@link sellPrice}); the story
+ * realm's shop passes {@link refundPrice} instead.
+ */
+export function sell(
+  euros: number,
+  items: Readonly<Inventory>,
+  item: Item,
+  qty: number,
+  priceOf: (item: Item) => number | null = sellPrice,
+): ShopResult {
+  const price = priceOf(item);
   if (price === null) return { ok: false, reason: 'not_for_sale' };
   if (!Number.isInteger(qty) || qty < 1) return { ok: false, reason: 'bad_quantity' };
   if (itemCount(items, item.id) < qty) return { ok: false, reason: 'not_enough_items' };

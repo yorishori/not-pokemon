@@ -1,7 +1,7 @@
 # Content guide
 
 How to add or change game content: flexymon, attacks, items, NPCs and their dialogue, enemy trainers, wild
-encounters, shops, the new game, secret names, the Audi, the intro, sounds and UI text.
+encounters, shops, the new game, secret names, the Audi, the intro, the story realm, sounds and UI text.
 
 **Content is data.** Adding content means editing JSON (and maps, see [MAPS.md](MAPS.md)); no TypeScript change is
 needed. Never hard-code content in `.ts` files.
@@ -42,6 +42,7 @@ status bar. Both use the same numbers: x from the left, y from the top, starting
 | The Audi | `public/data/car.json` | `src/data/schemas/car.ts` |
 | Title image and intro script | `public/data/intro.json` | `src/data/schemas/intro.ts` |
 | Interface sounds, battle music | `public/data/sounds.json` | `src/data/schemas/sounds.ts` |
+| The story realm (Modo historia): budget, shop, bosses | `public/data/story.json` | `src/data/schemas/story.ts` |
 | Maps | `public/maps/<zone>.tmj` (built from `tools/world/`) | `src/data/tiled.ts`, `src/data/map-checks.ts` |
 | UI strings (menus, battle messages) | `src/i18n/es.json` | missing keys show `⟦key⟧` |
 | Tunable rule numbers | `src/logic/constants.ts` | unit tests |
@@ -355,8 +356,66 @@ two destinations, `murcia` and `valencia`; a third region reachable by car would
 | `say` | `lines` | The coworker speaks. `{name}` = the player's name, `{starter}` = the starter's name. |
 | `handover` | — | Exactly one. Jingle, "¡Recibes a {starter}!", then the secret name's items and message. |
 
-The player gets control where the script leaves them; walk the coworker out of view at the end. Boot checks that
+The shipped intro also tells the player about the mystery door to the story realm. The player gets control where the
+script leaves them; walk the coworker out of view at the end. Boot checks that
 the coworker's tile and every walked tile are walkable and that no walk enters the other actor's tile.
+
+## The story realm (`story.json`)
+
+The *Modo historia* behind the office's mystery door (rules: [GAME-RULES.md](GAME-RULES.md) › Story mode). Shortened:
+
+```json
+{
+  "map": "historia",
+  "music": "assets/audio/music/valencia.ogg",
+  "budget": 1500,
+  "teamSize": 4,
+  "shop": ["cafe", "bocadillo", "redbull", "ibuprofeno"],
+  "door": ["Una puerta que no estaba aquí ayer..."],
+  "welcome": ["Has cruzado la puerta misteriosa. Bienvenido al Modo historia.", "..."],
+  "victory": ["¡Has vencido a todos los jefes del camino!", "..."],
+  "office": { "place": "La oficina", "x": 4, "y": 6, "path": [] },
+  "bosses": [
+    {
+      "id": "paellero_playa",
+      "name": "Paellero",
+      "place": "Playa de la Malvarrosa",
+      "sprite": "assets/sprites/npcs/paellero.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 25, "y": 13,
+      "path": [{ "x": 28, "y": 6 }, { "x": 28, "y": 13 }],
+      "stand": { "x": 25, "y": 12, "facing": "down" },
+      "dialogue": ["La paella no se toca hasta que esté el socarrat.", "..."],
+      "defeatDialogue": ["Bien jugado. Ni una gamba te has dejado."],
+      "team": [{ "id": "cafetera", "bonus": { "hp": 8, "attack": 3, "defense": 2, "speed": 2 } }, { "id": "movil" }]
+    }
+  ]
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `map` | The zone drawn as the story board (a `zones.json` id; the shipped one, `historia`, is built from `tools/world/historia.txt`, see [MAPS.md](MAPS.md) › The story map). |
+| `music` | The loop played on the board (battles use `sounds.json › battleMusic` as usual). |
+| `budget` | Euros to spend in the story shop, 0–999 999. Selling gives the full price back, so this never shrinks. |
+| `teamSize` | How many *different* flexymon the player picks, 1–6 (at most the number of species). |
+| `shop` | Item ids the story shop sells, in order: each must have a price and be usable in battle, no repeats. |
+| `door` | What the mystery door says before "¿Cruzar la puerta?". |
+| `welcome` | The explanation shown on the first visit, before the team choice. |
+| `victory` | Shown after the last boss's `defeatDialogue`. |
+| `office` | Stop 0: `place` (shown in the panel) and its tile `x`, `y`; `path` must be `[]`. |
+| `bosses` | The other stops, in order (at least one). |
+
+Each boss: a unique `id`, `name` (the character), `place` (the landmark, shown in the panel), `sprite` (a 64 × 128
+walk sheet like the NPCs'; `npm run art` draws one from `NPC_LOOKS`) and `voice`, the stop's tile `x`, `y`, `path`
+(the corner tiles walked through from the previous stop, both ends left out; every leg must be a straight line over
+walkable tiles), `stand` (the tile and facing of the character, next to the stop), `dialogue` (before the battle),
+`defeatDialogue` (after a first win and when talked to later) and `team` (1–6 members in battle order, each a
+species `id` and an optional `bonus` of `hp` / `attack` / `defense` / `speed`, 0–999 each, added to the base stats).
+
+Boot checks: the map, items and species exist; every stop is walkable; every leg is straight and walkable; every
+`stand` tile is inside the map. To add a boss, add a landmark to the layout, append the boss (its `path` leads from
+the previous stop), and run the game: a mistake stops on the red error screen.
 
 ## Sounds and music
 
@@ -366,6 +425,7 @@ the coworker's tile and every walked tile are walkable and that no walk enters t
   It crossfades in when a battle starts and the zone's music crossfades back when it ends.
 - **Attack sounds** (`attacks.json › sound`), **cries** (`flexymon.json › cry`), **voices** (`npcs.json › voice`),
   the jingle and the car engine are content paths like any other.
+- **Story realm music:** `story.json › music` plays on the story board and comes back after its battles.
 - **Interface sounds:** `sounds.json` has `cursor` (a menu cursor moved), `confirm` (an option chosen), `cancel` (B
   backed out), `error` (a refused action) and `money` (a purchase, a sale, a reward). All five, plus
   `battleMusic`, are required.
@@ -392,11 +452,12 @@ the same change.
 Available with `npm run dev`, or on any build with `?debug=1` in the URL. **F2** cycles: hidden → info (map, tile,
 FPS, euros) → menu → hidden. In the menu (arrows, A, B):
 
-- teleport to any zone's `default` spawn;
+- teleport to any zone's `default` spawn (the story board too: there it is only a map to look at; the story itself
+  is reached through the mystery door);
 - *Combate: {name}*: a wild battle against any species;
 - *Dar 1000 €*, *Dar: {item}*: give euros or one of any item;
 - *Recargar datos*: reload and validate every JSON and map;
-- *Borrar partida*: delete the save and reload;
+- *Borrar partida*: delete the save (and the story realm's save) and reload;
 - *Encuentros: sí/no*: switch wild encounters off;
 - *NPC: todos listos*: make every enemy fightable again.
 

@@ -53,7 +53,8 @@ set in `playwright.config.ts`); a black canvas usually means WebGL failed to sta
 | `title-intro.spec.ts` | Title, name entry, intro, secret names. |
 | `mobile-minimap.spec.ts` | Touch controls, portrait guard, minimap. |
 | `car.spec.ts` | The Audi: locked, trip, skip, way back. |
-| `world.spec.ts` | Walks the real world with a path finder: the office, the bars, the shops and M.P.'s house in Alboraya, both Alboraya ↔ Valencia edges, the metro, the Àgora, the train to El Pueblo (buys the licence), back north by road, the Audi to Murcia; then Murcia west to east and the car back. |
+| `story.spec.ts` | The story realm on the test world's small story: welcome, required team, the story shop (full-price buy-back), walking stop to stop, a closed stop, losing and winning a boss (healed, items back, the next boss appears), the office menu and back to the main game. |
+| `world.spec.ts` | Walks the real world with a path finder: the office, the bars, the shops and M.P.'s house in Alboraya, both Alboraya ↔ Valencia edges, the metro, the Àgora, the train to El Pueblo (buys the licence), back north by road, the Audi to Murcia; then Murcia west to east and the car back. Also the office's mystery door into the story realm (and a reload coming back in front of it). |
 | `audio-debug.spec.ts` | Audio unlock, interface sounds, the debug menu and data reload. |
 
 ### Writing a browser test
@@ -77,7 +78,8 @@ The real world grows; tests need numbers that never change. So there are two con
 
 - `public/data/` + `public/maps/*.tmj`: the real game.
 - `public/test-world/data/` + `public/maps/test/*.tmj`: a small, **frozen** set (3 flexymon, 3 test maps `test`,
-  `test_house`, `test_east`) used by the unit-test fixture and most browser specs. Layouts:
+  `test_house`, `test_east`; a two-boss `story.json` on the `test` map) used by the unit-test fixture and most
+  browser specs. Layouts:
   `public/maps/test/README.md`.
 
 Dev and E2E builds load the test world with `?world=test` in the URL or `localStorage['flexymon.e2e.world'] = 'test'`

@@ -1,0 +1,41 @@
+{
+  "map": "test",
+  "music": "assets/audio/music/test.ogg",
+  "budget": 300,
+  "teamSize": 2,
+  "shop": ["cafe", "redbull"],
+  "door": ["Una puerta de prueba."],
+  "welcome": ["Bienvenida de prueba."],
+  "victory": ["Victoria de prueba."],
+  "office": { "place": "Inicio de prueba", "x": 2, "y": 1, "path": [] },
+  "bosses": [
+    {
+      "id": "jefe_uno",
+      "name": "Jefe uno",
+      "place": "Parada uno",
+      "sprite": "assets/sprites/npcs/camarero.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 6,
+      "y": 1,
+      "path": [],
+      "stand": { "x": 6, "y": 0, "facing": "down" },
+      "dialogue": ["Primer jefe de prueba."],
+      "defeatDialogue": ["Derrota de prueba."],
+      "team": [{ "id": "raton" }]
+    },
+    {
+      "id": "jefe_dos",
+      "name": "Jefe dos",
+      "place": "Parada dos",
+      "sprite": "assets/sprites/npcs/camarero.png",
+      "voice": "assets/audio/sfx/voice_low.ogg",
+      "x": 12,
+      "y": 2,
+      "path": [{ "x": 12, "y": 1 }],
+      "stand": { "x": 12, "y": 1, "facing": "down" },
+      "dialogue": ["Segundo jefe de prueba."],
+      "defeatDialogue": ["Segunda derrota de prueba."],
+      "team": [{ "id": "teclado", "bonus": { "hp": 5 } }, { "id": "raton" }]
+    }
+  ]
+}

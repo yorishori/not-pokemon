@@ -94,6 +94,7 @@ describe('Tiled maps', () => {
         toFacing: 'up',
         trigger: 'step',
         car: null,
+        portal: false,
       },
       {
         name: 'east_edge',
@@ -107,6 +108,7 @@ describe('Tiled maps', () => {
         toFacing: null,
         trigger: 'step',
         car: null,
+        portal: false,
       },
       {
         name: 'audi',
@@ -120,6 +122,7 @@ describe('Tiled maps', () => {
         toFacing: null,
         trigger: 'action',
         car: 'murcia',
+        portal: false,
       },
     ]);
     expect(isBlocked(test, 6, 6)).toBe(false); // the door tile is walkable
@@ -150,6 +153,24 @@ describe('Tiled maps', () => {
       { name: 'trigger', value: 'action' },
     ];
     expect(() => parseTiledMap(map, 'maps/x.tmj')).toThrow(/warp "audi": car/);
+  });
+
+  it('a portal warp (the mystery door) needs no toMap but must use trigger = action', () => {
+    const map = buildTestMap() as {
+      layers: { name: string; objects?: { name: string; properties?: object[] }[] }[];
+    };
+    const door = map.layers.find((l) => l.name === 'warps')!.objects!.find((o) => o.name === 'audi')!;
+    door.properties = [
+      { name: 'portal', type: 'bool', value: true },
+      { name: 'trigger', value: 'action' },
+    ];
+    const warp = parseTiledMap(map, 'maps/x.tmj').warps.find((w) => w.name === 'audi');
+    expect(warp).toMatchObject({ portal: true, car: null, toMap: '', trigger: 'action' });
+    door.properties = [
+      { name: 'portal', type: 'bool', value: true },
+      { name: 'trigger', value: 'step' },
+    ];
+    expect(() => parseTiledMap(map, 'maps/x.tmj')).toThrow(/a portal warp needs trigger = action/);
   });
 
   it('rejects a warp with missing or wrong properties, naming it', () => {

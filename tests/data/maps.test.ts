@@ -166,4 +166,22 @@ describe('maps at load time', () => {
       }),
     ).toEqual(["intro.json › steps[3] › coworker would stand on the other actor's tile (15, 8)"]);
   });
+
+  it('the story map: stops walkable, legs straight and walkable, bosses inside the map', async () => {
+    expect(
+      await load((file, json) => {
+        if (file === 'story.json') {
+          Object.assign(json.bosses[0], { x: 5, y: 4, path: [{ x: 5, y: 1 }] }); // down into a wall
+          json.bosses[1].path = [{ x: 9, y: 2 }]; // a diagonal leg from (5, 4)
+          json.bosses[1].stand = { x: 40, y: 0, facing: 'down' };
+        }
+      }),
+    ).toEqual([
+      'story.json › bosses[0] › tile (5, 4) on map "test" is not walkable',
+      'story.json › bosses[0].path › tile (5, 3) on map "test" is not walkable',
+      'story.json › bosses[0].path › tile (5, 4) on map "test" is not walkable',
+      'story.json › bosses[1].path › every leg must be a straight line',
+      'story.json › bosses[1].stand › tile (40, 0) is outside map "test"',
+    ]);
+  });
 });

@@ -64,6 +64,7 @@ export function validateGameData(files: RawFiles): LoadResult {
     car: parsed['car.json'],
     intro: parsed['intro.json'],
     sounds: parsed['sounds.json'],
+    story: parsed['story.json'],
   } as RawGameData; // Safe: every entry passed its schema above.
 
   const refErrors = checkCrossRefs(raw);

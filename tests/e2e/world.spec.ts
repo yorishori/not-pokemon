@@ -289,7 +289,7 @@ test.describe('the real world', () => {
       attacks: 24,
       items: 8,
       npcs: 73,
-      zones: 19,
+      zones: 20,
     });
     expect(await hook<string[]>(page, 'failedAssets')).toEqual([]);
 
@@ -326,6 +326,47 @@ test.describe('the real world', () => {
     expect(await hook(page, 'items')).toEqual({ cafe: 3, llaves_audi: 1 });
     expect(await hook(page, 'currentMusic')).toBe('assets/audio/music/interior.ogg');
     await page.screenshot({ path: testInfo.outputPath(`m14-office-${testInfo.project.name}.png`) });
+    expect(errors).toEqual([]);
+  });
+
+  test('the mystery door in the office leads to the story realm and back', async ({ page }, testInfo) => {
+    test.setTimeout(90_000);
+    const errors = await realWorld(page);
+    await page.goto('/');
+    await page.waitForFunction(
+      () =>
+        (window as unknown as { __E2E__?: { preloadComplete(): boolean } }).__E2E__?.preloadComplete() ===
+        true,
+    );
+    await page.waitForFunction(() =>
+      (window as unknown as { __E2E__: { quickStart(): boolean } }).__E2E__.quickStart(),
+    );
+    await standing(page, { map: 'oficina', x: 10, y: 13 });
+    await walkTo(page, 'oficina', 8, 2);
+    await press(page, 'ArrowUp');
+    await standing(page, { facing: 'up' });
+    await page.screenshot({ path: testInfo.outputPath(`story-door-${testInfo.project.name}.png`) });
+    await press(page, 'z');
+    await expect
+      .poll(async () => (await dialogue(page))?.full ?? '')
+      .toContain('Una puerta que no estaba aquí');
+    while (!(await choice(page))) await press(page, 'z');
+    expect(await choice(page)).toEqual({ options: ['Sí', 'No'], cursor: 0 });
+    expect((await dialogue(page))?.full).toBe('¿Cruzar la puerta?');
+    await press(page, 'z');
+    await expect.poll(() => scene(page), { timeout: 10_000 }).toBe('Story');
+    expect(await hook<string[]>(page, 'savesWritten')).toContain('portal');
+    const story = () => hook<{ ui: string; dialogue: { full: string } | null } | null>(page, 'story');
+    await expect.poll(async () => (await story())?.dialogue?.full ?? '').toContain('Bienvenido al Modo');
+    await page.screenshot({ path: testInfo.outputPath(`story-welcome-${testInfo.project.name}.png`) });
+    expect(await hook(page, 'currentMusic')).toBe('assets/audio/music/valencia.ogg');
+    // Reloading the page in the realm comes back to the main game in front of the door.
+    await page.reload();
+    await expect.poll(() => scene(page), { timeout: 20_000 }).toBe('Title');
+    await page.waitForFunction(() =>
+      (window as unknown as { __E2E__: { quickStart(): boolean } }).__E2E__.quickStart(),
+    );
+    await standing(page, { map: 'oficina', x: 8, y: 2, facing: 'up' });
     expect(errors).toEqual([]);
   });
 

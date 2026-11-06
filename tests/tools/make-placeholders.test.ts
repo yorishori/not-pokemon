@@ -89,7 +89,7 @@ describe('make-placeholders', () => {
 
   it('makes a minimap for every outdoor zone only, of the real world and the test world', () => {
     expect(readMinimapTargets()).toEqual([
-      ...['alboraya', 'valencia', 'pueblo', 'murcia'].map((id) => ({
+      ...['alboraya', 'valencia', 'pueblo', 'murcia', 'historia'].map((id) => ({
         assetPath: `assets/ui/minimap_${id}.png`,
         mapFile: `maps/${id}.tmj`,
       })),

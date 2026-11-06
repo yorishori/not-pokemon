@@ -67,6 +67,8 @@ const nextTo = (tiles: Set<string>, map: string, x: number, y: number) =>
 
 const VALENCIA_SIDE = ['alboraya', 'valencia', 'pueblo'];
 const MURCIA_SIDE = ['murcia'];
+/** The story realm's board: reached only through the office's mystery door. */
+const STORY = ['historia'];
 const INTERIORS = [
   'oficina',
   'bar_centro',
@@ -91,7 +93,9 @@ describe('the real world', () => {
   });
 
   it('has every shipped zone and no test map', () => {
-    expect([...data.zones.keys()].sort()).toEqual([...VALENCIA_SIDE, ...MURCIA_SIDE, ...INTERIORS].sort());
+    expect([...data.zones.keys()].sort()).toEqual(
+      [...VALENCIA_SIDE, ...MURCIA_SIDE, ...INTERIORS, ...STORY].sort(),
+    );
     expect(
       [...data.zones.values()]
         .filter((z) => z.indoor)
@@ -148,7 +152,7 @@ describe('the real world', () => {
       ...INTERIORS.filter((i) => !['tienda_murcia', 'empresa_poligono'].includes(i)),
     ])
       expect(maps.has(id), id).toBe(true);
-    for (const id of [...MURCIA_SIDE, 'tienda_murcia', 'empresa_poligono'])
+    for (const id of [...MURCIA_SIDE, ...STORY, 'tienda_murcia', 'empresa_poligono'])
       expect(maps.has(id), id).toBe(false);
     // The respawn point is on the same walkable network.
     expect(tiles.has(`${data.start.respawn.map}:${data.start.respawn.x},${data.start.respawn.y}`)).toBe(true);
@@ -200,6 +204,22 @@ describe('the real world', () => {
         'tienda_valencia',
       ].sort(),
     );
+  });
+
+  it('the mystery door is in the office, can be walked up to, and the story map is its own board', () => {
+    const doors = [...data.maps].flatMap(([map, m]) =>
+      m.info.warps.filter((w) => w.portal).map((w) => ({ map, w })),
+    );
+    expect(doors.map(({ map }) => map)).toEqual(['oficina']);
+    const door = doors[0]!.w;
+    expect(nextTo(reachable(data.start.spawn), 'oficina', door.x, door.y)).toBe(true);
+    expect(data.story.map).toBe(STORY[0]);
+    // Nothing warps onto the story board, and the board has no way out but the office menu.
+    expect([...data.maps.values()].some((m) => m.info.warps.some((w) => w.toMap === data.story.map))).toBe(
+      false,
+    );
+    expect(data.maps.get(data.story.map)!.info.warps).toEqual([]);
+    expect(data.story.bosses.length).toBe(7);
   });
 
   it('the office has the healer and the storage box; the intro plays there', () => {

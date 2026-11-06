@@ -32,6 +32,9 @@
  * - Losing (wild or NPC): `loseBattle` applies the Losing rule to the game state (euros halved, team
  *   and storage fully healed, every NPC `ready`, player at `start.json › respawn`); the overworld then
  *   restarts at the respawn point.
+ * - Story realm boss battles (started with `story`): the team and a copy of the loadout come from the story state;
+ *   at the end `afterStoryBattle` heals the team and counts a first win against the waiting boss, the story slot is
+ *   saved, and there is no reward, catch, Losing rule or main-game save. The StoryScene wakes on `battle:ended`.
  * - While the debug menu (`debug:menu`) is open, the battle ignores input.
  */
 import Phaser from 'phaser';
@@ -43,6 +46,8 @@ import { sfxVolume } from '../core/options';
 import { uiSound } from '../core/ui-sound';
 import { HIT_DIM_MS, HIT_SHAKES, HIT_SHAKE_MS } from '../logic/constants';
 import { gameState, setGameState } from '../core/session';
+import { saveStory, setStoryState, storyState } from '../core/story-session';
+import { afterStoryBattle } from '../logic/story';
 import { getGameData } from '../data/game-data';
 import { t } from '../i18n';
 import {
@@ -88,6 +93,11 @@ export interface BattleSceneData {
   seed?: number;
   /** The enemy NPC fought: a win pays its reward and puts it in `cooldown`. */
   npcId?: string;
+  /**
+   * A story realm boss battle against the boss at stop `at`: the team and bag come from the story state (the bag is
+   * a copy of the loadout), and the end runs `afterStoryBattle` instead of rewards or the Losing rule.
+   */
+  story?: { at: number };
 }
 
 /**
@@ -160,6 +170,7 @@ export class BattleScene extends Phaser.Scene {
   private battle!: BattleState;
   private kind: BattleKind = 'wild';
   private npcId: string | undefined;
+  private story: { at: number } | undefined;
   private sides!: Record<Side, SideDisplay>;
   private dialog!: DialogBox;
   private menu!: GridMenu;
@@ -182,9 +193,15 @@ export class BattleScene extends Phaser.Scene {
     this.debugMenuOpen = false;
     this.kind = data.kind;
     this.npcId = data.npcId;
+    this.story = data.story;
     if (data.seed !== undefined) rng.seed(data.seed);
-    const gs = gameState();
-    this.battle = createBattle(gs.team, data.opponent, data.kind, gs.items);
+    if (this.story) {
+      const ss = storyState();
+      this.battle = createBattle(ss.team, data.opponent, data.kind, { ...ss.loadout });
+    } else {
+      const gs = gameState();
+      this.battle = createBattle(gs.team, data.opponent, data.kind, gs.items);
+    }
     events.emit('battle:started');
 
     this.cameras.main.resetFX();
@@ -521,6 +538,13 @@ export class BattleScene extends Phaser.Scene {
   private finish(result: BattleResult): void {
     this.ui = 'end';
     const data = getGameData();
+    if (this.story) {
+      const outcome = afterStoryBattle(storyState(), this.story.at, result, data.story, data.flexymon);
+      setStoryState(outcome.state);
+      saveStory();
+      log(`Battle: story stop ${this.story.at} ended (${result})`);
+      return this.leave(result);
+    }
     let gs = { ...gameState(), team: this.battle.player.team, items: { ...this.battle.items } };
     if (result === 'lose') gs = loseBattle(gs, data);
     setGameState(gs);
@@ -575,7 +599,8 @@ export class BattleScene extends Phaser.Scene {
     const cam = this.cameras.main;
     cam.fadeOut(END_FADE_MS, 0, 0, 0);
     cam.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-      events.emit('save:request', { reason: 'battle' });
+      // A story battle already saved the story's own slot; the main game did not change.
+      if (!this.story) events.emit('save:request', { reason: 'battle' });
       events.emit('battle:ended', { result });
       this.scene.stop();
     });

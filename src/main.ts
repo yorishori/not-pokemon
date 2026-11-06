@@ -17,6 +17,10 @@ import { getOptions, loadOptions, setOptions, sfxVolume } from './core/options';
 import { setUiSoundPlayer, uiSoundsPlayed, type UiSoundKind } from './core/ui-sound';
 import { unlockAudioOnFirstInput } from './core/audio-unlock';
 import { saveStore } from './core/save-store';
+import { disableStorySaving, removeStory, savedStory, setStoryState, storyState } from './core/story-session';
+import type { StoryState } from './logic/story';
+import { STORY_SCENE, type StoryScene, type StoryView } from './scenes/story-scene';
+import { STORY_TEAM_SCENE, type StoryTeamScene, type StoryTeamView } from './scenes/story-team-scene';
 import { volumeGain, type Options } from './logic/options';
 import type { GameState } from './logic/save';
 import { HUD_SCENE, type HudScene } from './scenes/hud-scene';
@@ -108,6 +112,11 @@ events.on('zone:entered', ({ zone }) => {
   zoneMusic = z.music;
   music.play(z.music);
 });
+// The story realm plays its own music (`story.json › music`), and goes back to it after its battles.
+events.on('story:entered', () => {
+  zoneMusic = getGameData().story.music;
+  music.play(zoneMusic);
+});
 events.on('battle:started', () => music.play(getGameData().sounds.battleMusic));
 events.on('battle:ended', () => {
   if (zoneMusic) music.play(zoneMusic);
@@ -141,6 +150,8 @@ autosave.start(window);
 events.on('debug:delete_save', () => {
   autosave.disable();
   saveStore.remove();
+  disableStorySaving();
+  removeStory();
   window.location.reload();
 });
 
@@ -297,6 +308,21 @@ export interface E2EHooks {
   atlasSprites(): number;
   /** The debug menu's last "Recargar datos": `idle` / `loading` / `ok` / `error` and the errors; `null` without debug. */
   debugReload(): ReloadStatus | null;
+  /**
+   * Go through the office's mystery door at once (skipping its dialogue): the overworld saves and starts the story
+   * realm. False if the overworld refused (locked, mid-step, a box open, not in the overworld).
+   */
+  enterStory(): boolean;
+  /** The story map (ui, stage, stop, tile, bosses shown, panel, dialogue, choice) while it runs or is paused; else `null`. */
+  story(): StoryView | null;
+  /** The story team picker (picks, size, menu, species under the cursor, confirming); else `null`. */
+  storyTeam(): StoryTeamView | null;
+  /** The story realm's state (stage, team, loadout, euros, beaten, at). */
+  storyState(): StoryState;
+  /** Merge these fields into the story realm's state (not saved until the game saves the story). */
+  patchStory(patch: Partial<StoryState>): void;
+  /** The raw `flexymon.story.v1` text, or `null`. */
+  savedStory(): string | null;
 }
 
 if (import.meta.env.DEV || import.meta.env.VITE_E2E === '1') {
@@ -444,6 +470,18 @@ if (import.meta.env.DEV || import.meta.env.VITE_E2E === '1') {
     },
     carTrip: () =>
       game.scene.isActive(CAR_SCENE) ? (game.scene.getScene(CAR_SCENE) as CarScene).view() : null,
+    enterStory: () => overworld()?.enterStory() ?? false,
+    story: () =>
+      game.scene.isActive(STORY_SCENE) || game.scene.isPaused(STORY_SCENE)
+        ? (game.scene.getScene(STORY_SCENE) as StoryScene).view()
+        : null,
+    storyTeam: () =>
+      game.scene.isActive(STORY_TEAM_SCENE)
+        ? (game.scene.getScene(STORY_TEAM_SCENE) as StoryTeamScene).view()
+        : null,
+    storyState: () => structuredClone(storyState()),
+    patchStory: (patch) => setStoryState({ ...storyState(), ...structuredClone(patch) }),
+    savedStory: () => savedStory(),
     debugLines: () => {
       if (!game.scene.isActive(DEBUG_SCENE)) return null;
       const scene = game.scene.getScene(DEBUG_SCENE) as DebugScene;

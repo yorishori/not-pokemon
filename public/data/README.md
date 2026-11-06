@@ -16,6 +16,7 @@ Every creature, attack, item, NPC, zone, shop and the new-game setup, as JSON. *
 | `car.json` | The Audi: unlock item pairs, locked dialogue, trip sprite and sound, arrival points. |
 | `intro.json` | Title image, handover jingle, the intro coworker and the intro script. |
 | `sounds.json` | Interface sounds (cursor, confirm, cancel, error, money) and the battle music (`battleMusic`). |
+| `story.json` | The story realm (Modo historia): its board map and music, budget, team size, shop, door / welcome / victory lines, the office stop and the bosses (landmark, stop, path, where they stand, speeches, team with bonuses). |
 
 Validated at boot by the zod schemas in `src/data/schemas/` (one per file), then by cross-reference checks
 (`src/data/cross-refs.ts`) and map checks (`src/data/map-checks.ts`). Any error stops the game on a red screen as
@@ -43,6 +44,10 @@ Validated at boot by the zod schemas in `src/data/schemas/` (one per file), then
 - `intro.json`: exactly one `handover` step; the coworker's tile and every walked tile walkable; no walk enters the
   other actor's tile.
 - `sounds.json`: all five interface sounds and `battleMusic` required.
+- `story.json`: `map` is a zone; budget 0–999 999; `teamSize` 1–6 and at most the number of species; `shop` lists
+  priced battle items, no repeats; `office.path` is empty; at least one boss, ids unique, team 1–6 known species, each
+  `bonus` stat 0–999; every stop walkable, every leg of `path` a straight line over walkable tiles, every `stand`
+  inside the map.
 
 `public/test-world/data/` is a frozen copy of an early, small content set used by the tests. Do not add real content
 there (see `docs/TESTING.md`).

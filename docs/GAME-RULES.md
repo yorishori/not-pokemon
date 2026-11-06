@@ -15,7 +15,7 @@ These decisions shape the whole game. Changing one is a design change, not a bug
 | Genre | A top-down monster-collecting RPG in the style of the Game Boy Color era, set in a cartoon Valencia region. |
 | Language | Spanish only. UI strings in `src/i18n/es.json`; content text in `public/data/*.json`; never in code. |
 | Creatures | Called *flexymon* (singular and plural). Never use the word "Pokémon" or any Nintendo asset. |
-| Goal | None. Free wandering: no story, no final boss, no credits. |
+| Goal | The main game has none: free wandering, no story, no final boss, no credits. The *Modo historia* behind the office's mystery door is the fast mode: a linear run of boss fights with no exploration and no growth (see *Story mode*). |
 | Stats | HP (*PS*), Ataque, Defensa, Velocidad. No types, no levels, no XP. |
 | Attacks | At most 3 per flexymon. Effects: damage, heal, buff, debuff. Each has an accuracy; no critical hits. |
 | Starter | Every new game starts with one flexymon (`start.json › starter`, *Portátil*), handed over in the intro. |
@@ -26,7 +26,7 @@ These decisions shape the whole game. Changing one is a design change, not a bug
 | Losing | Wake up at the office with half your euros and a fully healed team. |
 | Murcia | The Murcia map is reached only by the white Audi at the office, which needs certain items. |
 | Controls | Desktop: arrows/WASD move, Z = A, X = B, Enter = Start, M = minimap. Mobile: on-screen D-pad, A, B, Start, Mapa; landscape only. No gamepad. |
-| Saving | Auto-save to `localStorage` (key `flexymon.save.v1`), one slot. No backend, no accounts. |
+| Saving | Auto-save to `localStorage` (key `flexymon.save.v1`), one slot. The story realm keeps its own slot (`flexymon.story.v1`). No backend, no accounts. |
 | Hosting | A fully static site. |
 | Screen | 512 × 288 base pixels (16 × 9 tiles of 32 px), pixel art, scaled to fit. |
 
@@ -174,7 +174,7 @@ nothing. Bag counts are 0–`ITEM_COUNT_MAX` (99); gains above that are capped. 
 ## Euros and shops
 
 Euros are whole numbers from 0 to `EUROS_MAX` (999 999). Buying checks money first and is also limited by bag room.
-Selling pays `floor(price / 2)`. Key items and items with `price: null` cannot be sold; `price: null` items cannot
+Selling pays `floor(price / 2)` (the story realm's shop pays the full price, see *Story mode*). Key items and items with `price: null` cannot be sold; `price: null` items cannot
 be bought either. (`src/logic/economy.ts`, `src/logic/shop.ts`)
 
 ## The Audi
@@ -193,8 +193,8 @@ items are added and its message shown right after the handover. (`src/logic/intr
 
 ## Saving
 
-Auto-save to `localStorage` key `flexymon.save.v1` after every map change, battle, shop visit, healer visit and Start
-menu close (a "Guardando…" icon shows for 600 ms), plus a quiet save when the page is hidden or closed. Format:
+Auto-save to `localStorage` key `flexymon.save.v1` after every map change, battle, shop visit, healer visit, Start
+menu close and trip through the mystery door (a "Guardando…" icon shows for 600 ms), plus a quiet save when the page is hidden or closed. Format:
 
 ```json
 { "version": 1, "savedAt": "2026-11-04T21:00:00Z",
@@ -212,6 +212,48 @@ If you change the format, bump `SAVE_VERSION` and add a migration in `src/logic/
 
 Player options (music and effects volume 0–10, text speed lenta / normal / rápida = 15 / 30 / 60 characters per
 second) live separately in `localStorage` key `flexymon.options`.
+
+## Story mode
+
+A fast mode without exploration or growth, in its own realm. The rules are pure functions in `src/logic/story.ts`;
+the content is `story.json` ([CONTENT.md](CONTENT.md) › The story realm).
+
+- **Entry.** A mystery door in the office's back wall (an `action` warp with `portal = true`): A facing it shows
+  `story.json › door`, then "¿Cruzar la puerta?" (Sí / No, B = No). Sí saves the main game (the player stays in front
+  of the door) and opens the realm. The new-game intro mentions the door. Reloading the page in the realm comes back
+  to the main game in front of the door; the story goes on from where it was the next time through.
+- **Separate realms.** The story has its own team, bag, budget and save slot (`flexymon.story.v1`). Nothing moves
+  between the realms; only the player's name is shared. The main game's healer, storage, shops, Start menu and
+  minimap are not used in the realm.
+- **Setup.** The first visit shows `story.json › welcome` (the explanation), then the team choice, then the shop:
+  - **Team:** exactly `teamSize` (4) *different* species, any of `flexymon.json`, fresh (base stats, no bonus). The
+    pick order is the battle order. The team can be changed at the office at any time.
+  - **Shop:** the items in `story.json › shop` (priced battle items), bought with the `budget` (1500 €). No limit on
+    how many, other than the budget and the bag's 99 per item. **Selling gives back the full price**, so euros plus
+    the bag's value always equal the budget. Buy and sell at the office at any time.
+- **The map.** A board of stops joined by a fixed path: stop 0 is the office, then one stop per boss (7) at a
+  Valencia landmark. The player only walks from a stop to the previous or the next one, by pressing the direction of
+  the path's first step that way, and walks the whole leg automatically. The next stop opens only once every boss
+  before it is beaten: the furthest reachable stop is `beaten + 1`. Trying to go further says "Primero tienes que
+  vencer a {name}.".
+- **Bosses.** Only the next boss to fight stands at its landmark; the ones further on are not there yet (a
+  surprise). Beaten bosses stay, with a flag on their stop. A on the waiting boss: its `dialogue`, then a battle (the
+  normal battle rules, kind `npc`: no fleeing, no catching, no reward) against its team, each member with its
+  optional stat `bonus` and full HP. A on a beaten boss: its `defeatDialogue` and "¿Revancha?" (Sí / No).
+- **After every story battle** (won or lost) the team is fully healed and the bag is the bought items again: a
+  battle uses a copy of the bag, so used items come back.
+  - **Win** against the waiting boss: it counts as beaten, it says its `defeatDialogue`, and the next boss appears.
+    After the last boss `story.json › victory` shows; the map stays open and every boss can be fought again.
+  - **Loss:** "Tu equipo se ha recuperado. ¡Inténtalo otra vez!", on the same stop; nothing else is lost (the main
+    game's Losing rule does not apply).
+- **The office menu** (A at stop 0): *Cambiar equipo*, *Tienda*, *Volver al juego* (back to the main game in front of
+  the door), *Reiniciar historia* (Sí / No: new team, budget refunded, no boss beaten; welcome not shown again) and
+  *Salir*.
+- **Saving.** The story slot is written after the team choice, every shop visit, every battle and every arrival at a
+  stop. A slot that no longer fits the content is fixed on load: an invalid team is dropped (pick again), items the
+  shop no longer sells are dropped, and if euros plus the bag's value no longer equal the budget everything is
+  refunded; beaten bosses and the stop are clamped to the bosses there are. A slot that cannot be read is copied to
+  `flexymon.story.broken` and the story starts fresh.
 
 ## Accessibility
 

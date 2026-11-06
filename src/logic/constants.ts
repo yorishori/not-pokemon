@@ -43,6 +43,9 @@ export const NPC_LOW_HP = 0.25;
 /** Current save format version (`flexymon.save.v1`). */
 export const SAVE_VERSION = 1;
 
+/** Current format version of the story realm's save (`flexymon.story.v1`). */
+export const STORY_SAVE_VERSION = 1;
+
 /** Time for the player to walk one tile, in ms. */
 export const WALK_MS = 200;
 

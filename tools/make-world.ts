@@ -16,7 +16,8 @@
  *   door, facing down;
  * - an edge `{ side, from, to, map }` is an off-map step warp along that side (`from`–`to` are columns for
  *   north/south, rows for east/west) that keeps the column/row, plus the reverse warp on the other map;
- * - `car` puts the Audi's two tiles (`A`, `a` in the layout) under an `action` warp with the `car` property.
+ * - `car` puts the Audi's two tiles (`A`, `a` in the layout) under an `action` warp with the `car` property;
+ * - `portal` puts the mystery door (`?` in the layout) under an `action` warp with the bool property `portal = true`.
  *
  * Like the other tools it NEVER overwrites an existing file (hand-edited maps are safe); pass `--force` to
  * regenerate everything.
@@ -187,6 +188,8 @@ export const LEGEND: Record<string, { layer: 'ground' | 'deco' | 'tree'; tile: n
   '@': { layer: 'deco', tile: XT.assut },
   ')': { layer: 'deco', tile: XT.bullring },
   ';': { layer: 'deco', tile: XT.lamp },
+  '?': { layer: 'deco', tile: XT.mysteryDoor },
+  '{': { layer: 'ground', tile: XT.storyNode },
 };
 
 /** Base grounds a map can put under its deco tiles. */
@@ -214,6 +217,8 @@ export interface WorldMapSpec {
   doors?: { x: number; y: number; to: string }[];
   edges?: { side: Side; from: number; to: number; map: string }[];
   car?: { x: number; y: number; to: 'murcia' | 'valencia' };
+  /** The mystery door to the story realm (`?` at (x, y)): an `action` warp with the property `portal = true`. */
+  portal?: { x: number; y: number };
   /**
    * One-way step warps to any tile of another map (the metro and the train): `{ x, y, to, toX, toY, facing }`.
    * Not mirrored: the station on the other side lists its own link back.
@@ -287,7 +292,7 @@ interface ObjSpec {
   width?: number;
   height?: number;
   point?: boolean;
-  properties?: { name: string; type: 'string' | 'int'; value: string | number }[];
+  properties?: { name: string; type: 'string' | 'int' | 'bool'; value: string | number | boolean }[];
 }
 
 /** A warp object. `toX` / `toY` left out = keep the player's column / row. */
@@ -588,6 +593,22 @@ export function buildWorld(
         height: 1,
         properties: [
           { name: 'car', type: 'string', value: to },
+          { name: 'trigger', type: 'string', value: 'action' },
+        ],
+      });
+    }
+    if (spec.portal) {
+      const { x, y } = spec.portal;
+      if (charAt(id, x, y) !== '?')
+        throw new Error(`world.json › ${id}: the portal at (${x}, ${y}) needs "?" in the layout`);
+      map.warps.push({
+        name: 'puerta_misteriosa',
+        x,
+        y,
+        width: 1,
+        height: 1,
+        properties: [
+          { name: 'portal', type: 'bool', value: true },
           { name: 'trigger', type: 'string', value: 'action' },
         ],
       });

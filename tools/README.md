@@ -62,7 +62,8 @@ corrugated industrial wall (plain / with windows), `Z` roller shutter, `B` brick
 `0` the Turia's retaining wall, `1` the Àgora (purple), `2` the CAC's white ribs, `@` the Assut de l'Or bridge mast,
 `3` old stone (Torres de Serranos, the cathedral), `5` the Estació del Nord's orange façade, `)` the bullring, `+`
 office wall, `g` glass, `(` sofa, `%` plant, `t` meeting table, `&` modern desk, `$` coffee bar, `[` wall screen,
-`!` beach umbrella, `-` towel (walkable), `|` bench, `;` street lamp.
+`!` beach umbrella, `-` towel (walkable), `|` bench, `;` street lamp, `?` the mystery door (put a `portal` entry on
+it), `{` a stop on the story map's path (walkable).
 
 `world.json › maps.<zone>`:
 
@@ -74,10 +75,12 @@ office wall, `g` glass, `(` sofa, `%` plant, `t` meeting table, `&` modern desk,
 | `doors` | `[{ x, y, to }]`: a `D` tile leading to the interior `to`; the way back is generated. |
 | `edges` | `[{ side, from, to, map }]`: an off-map warp along `side` (`north`/`south`/`east`/`west`) over columns (or rows) `from`–`to`, keeping the column (row); the reverse warp on `map` is generated. |
 | `car` | `{ x, y, to }`: the Audi (`Aa` at (x, y)) with an `action` warp, `to` = `murcia` or `valencia`. |
+| `portal` | `{ x, y }`: the mystery door (`?` at (x, y)) with an `action` warp carrying the bool property `portal = true`. |
 | `links` | `[{ x, y, to, toX, toY, facing }]`: a one-way step warp from (x, y) to any tile of map `to` (the metro and the train: the `j` train door to the other station's platform). Not mirrored: the other station lists its own link back. |
 | `encounters` | `[{ name, x, y, width, height, group, mode }]`: encounter rectangles (`group` must be in `zones.json`). |
 
-The tool checks the layout (equal row widths, known characters) and that doors and the car stand on `D` / `Aa`.
+The tool checks the layout (equal row widths, known characters) and that doors, the car and the portal stand on
+`D` / `Aa` / `?`.
 
 after placing the base tiles, `autotile()` swaps them for look-alike **variants** chosen from the
 neighbours (roof ridge / eave / edges and one of four roof colours per building, facade edges and windows, indoor

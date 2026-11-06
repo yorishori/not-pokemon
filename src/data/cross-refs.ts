@@ -1,6 +1,7 @@
 /**
  * Cross-reference checks run after every file passed its schema: every id used somewhere exists,
- * ids are unique, shops sell only buyable items, secret names do not collide.
+ * ids are unique, shops sell only buyable items, secret names do not collide, and the story realm's map, shop
+ * (priced battle items) and boss teams exist.
  * Map-dependent checks (walkable spawns, warps) live in `map-checks.ts`.
  */
 import { normalizeName } from '../logic/names';
@@ -98,6 +99,33 @@ export function checkCrossRefs(raw: RawGameData): DataError[] {
   );
   needMap('car.json', ['toMurcia', 'map'], raw.car.toMurcia.map);
   needMap('car.json', ['toValencia', 'map'], raw.car.toValencia.map);
+
+  // story.json: the board is a zone; the shop sells priced battle items; boss ids are unique; teams exist.
+  const story = raw.story;
+  needMap('story.json', ['map'], story.map);
+  story.shop.forEach((id, j) => {
+    const item = itemById.get(id);
+    if (!item) add('story.json', ['shop', j], `unknown item "${id}"`);
+    else if (item.price === null)
+      add('story.json', ['shop', j], `item "${id}" has price null and cannot be sold`);
+    else if (!item.usableIn.includes('battle'))
+      add('story.json', ['shop', j], `item "${id}" cannot be used in battle`);
+  });
+  if (new Set(story.shop).size !== story.shop.length) add('story.json', ['shop'], 'lists an item twice');
+  if (story.teamSize > raw.flexymon.length)
+    add(
+      'story.json',
+      ['teamSize'],
+      `needs ${story.teamSize} different flexymon but only ${raw.flexymon.length} exist`,
+    );
+  const bossIds = new Set<string>();
+  story.bosses.forEach((boss, i) => {
+    if (bossIds.has(boss.id)) add('story.json', ['bosses', i, 'id'], `duplicate id "${boss.id}"`);
+    bossIds.add(boss.id);
+  });
+  story.bosses.forEach((boss, i) =>
+    boss.team.forEach((m, j) => needFlexymon('story.json', ['bosses', i, 'team', j, 'id'], m.id)),
+  );
 
   return errors;
 }

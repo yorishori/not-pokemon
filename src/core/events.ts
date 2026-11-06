@@ -30,13 +30,17 @@ export interface GameEvents {
   'battle:ended': { result: 'win' | 'lose' | 'fled' };
   /**
    * A point where the game auto-saves (`healer`, `shop`, `map` (overworld entered a
-   * map), `battle` (battle ended) and `menu` (Start menu closed); `src/core/autosave.ts` writes the save).
+   * map), `battle` (battle ended), `menu` (Start menu closed) and `portal` (the player goes through the mystery
+   * door); `src/core/autosave.ts` writes the save).
    */
-  'save:request': { reason: 'healer' | 'shop' | 'map' | 'battle' | 'menu' };
+  'save:request': { reason: 'healer' | 'shop' | 'map' | 'battle' | 'menu' | 'portal' };
   /** An overlay scene opened from the overworld (Shop, Storage; Menu) closed; the overworld resumes. */
   'overlay:closed': { scene: string };
-  /** A save was written for this reason (the HUD shows "Guardando…"). Quiet saves on page hide are not announced. */
-  'save:done': { reason: 'healer' | 'shop' | 'map' | 'battle' | 'menu' };
+  /**
+   * A save was written for this reason (the HUD shows "Guardando…"); `story` is the story realm's own slot
+   * (`src/core/story-session.ts`). Quiet saves on page hide are not announced.
+   */
+  'save:done': { reason: 'healer' | 'shop' | 'map' | 'battle' | 'menu' | 'portal' | 'story' };
   /** The player changed an option; payload = the new options. */
   'options:changed': Options;
   /** Debug command: delete the save and reload the page. */
@@ -46,6 +50,8 @@ export interface GameEvents {
    * overworld rebuilds the current map where the player stands.
    */
   'debug:reloaded': void;
+  /** The StoryScene (the story realm's map) started; `main.ts` plays `story.json › music`. */
+  'story:entered': void;
   /** The CarScene finished the trip (played out or skipped); the overworld moves to the arrival point. */
   'car:ended': { to: 'murcia' | 'valencia' };
 }

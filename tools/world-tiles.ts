@@ -113,6 +113,8 @@ const EXTRA_NAMES = [
   'lamp',
   'dryGrass',
   'wave',
+  'mysteryDoor',
+  'storyNode',
 ] as const;
 /** An extra tile's name. */
 export type ExtraName = (typeof EXTRA_NAMES)[number];
@@ -863,6 +865,49 @@ const TILES: Record<ExtraName, PixelTile> = {
             : solidRow('e'),
     ),
   },
+  // The mystery door in the office's back wall (the way to the story realm): a violet arched door with a "?".
+  mysteryDoor: {
+    rows: [
+      'wwwwwwwwwwwwwwww',
+      'wwwwkkkkkkkkwwww',
+      'wwwkPPPPPPPPkwww',
+      'wwkPpppppppppkww',
+      'wwkPpppyyppppkww',
+      'wwkPppyppyppPkww',
+      'wwkPpppppyppPkww',
+      'wwkPppppyppPPkww',
+      'wwkPpppyyppPPkww',
+      'wwkPpppppppPPkww',
+      'wwkPpppyyppPPkww',
+      'wwkPpppppppyPkww',
+      'nnkPpppppppPPknn',
+      'nnkPPPPPPPPPPknn',
+      'nnkkkkkkkkkkkknn',
+      'NNNNNNNNNNNNNNNN',
+    ],
+  },
+  // A stop on the story map's path: a round stone marker on the sandy path.
+  storyNode: {
+    rows: [
+      'uuuuuuuuuuuuuuuu',
+      'uuuuuUUUUUUuuuuu',
+      'uuuUUkkkkkkUUuuu',
+      'uuUkkMMMMMMkkUuu',
+      'uuUkMwwMMMMMMkUu',
+      'uUkMwwMMMMMMMmkU',
+      'uUkMwMMMMMMMMmkU',
+      'uUkMMMMMMMMMMmkU',
+      'uUkMMMMMMMMMMmkU',
+      'uUkMMMMMMMMMmmkU',
+      'uUkmMMMMMMMmmmkU',
+      'uuUkmmMMMMmmmkUu',
+      'uuUkkmmmmmmkkUuu',
+      'uuuUUkkkkkkUUuuu',
+      'uuuuuUUUUUUuuuuu',
+      'uuuuuuuuuuuuuuuu',
+    ],
+    pal: { u: [240, 216, 160, 255], U: [214, 188, 128, 255] },
+  },
 };
 
 /** Ids of the extra tiles that block (`solid = true`). */
@@ -906,6 +951,7 @@ export const EXTRA_SOLID: number[] = [
   XT.bullring,
   XT.lamp,
   XT.wave,
+  XT.mysteryDoor,
 ];
 
 /** Ids of the extra tiles that start encounters (`encounter = true`): the huerta's crops and the dry scrub. */

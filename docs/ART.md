@@ -101,7 +101,7 @@ npm run art -- --force
 
 Add a function to `ITEMS` in `tools/art/sprites.ts`; it paints directly at 16 × 16. Unknown ids get a parcel.
 
-### Give a new NPC its look
+### Give a new NPC (or story boss) its look
 
 Add the sprite's file name to `NPC_LOOKS` in `tools/art/characters.ts`:
 
@@ -140,7 +140,7 @@ tileset, keep the tile order. `npm run build` repacks the atlas automatically.
 - `npm run placeholders` makes a 0.2 s beep for any missing sound (distinct tones for the interface sounds, a hum
   for the car engine) when `ffmpeg` is installed, or silent files otherwise.
 - Music: one loop per region (`valencia`, `murcia`) plus `interior` for every indoor zone, chosen per zone in
-  `zones.json › music`, and `battle` for every battle (`sounds.json › battleMusic`).
+  `zones.json › music` (the story board plays `story.json › music`, the Valencia loop), and `battle` for every battle (`sounds.json › battleMusic`).
 - The music, the interface sounds, the two dialogue voices, the starter jingle and the car engine are hand-made
   recordings; the cries and attack sounds are still placeholder beeps.
 - Dialogue voices play every few typed characters (`VOICE_EVERY_CHARS`), so a voice file must be a blip of under

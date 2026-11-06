@@ -39,8 +39,13 @@ const ALERT_DEPTH = 4;
 /** Frame names added to a sheet texture (`npc0` … `npc7`, same order as the player sheet). */
 const frameName = (i: number): string => `npc${i}`;
 
+/** Name of frame `i` (the player sheet's order, see `playerFrame`) of a sheet prepared by {@link prepareSheet}. */
+export function npcFrame(i: number): string {
+  return frameName(i);
+}
+
 /** If `key` is a 2 × 4 sheet of tiles, add its frames once and return true. */
-function prepareSheet(scene: Phaser.Scene, key: string): boolean {
+export function prepareSheet(scene: Phaser.Scene, key: string): boolean {
   if (!scene.textures.exists(key)) return false;
   const tex = scene.textures.get(key);
   if (tex.has(frameName(0))) return true;

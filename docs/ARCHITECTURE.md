@@ -63,8 +63,11 @@ Boot ─► Preload ─► Title ─► Name ─► Intro ─► Overworld ◄�
   └─► Error                 └─(Continuar)─────────► │                 │
                                                     ├─► Battle ───────┤  (Overworld sleeps; wakes on battle:ended)
                                                     ├─► Car ──────────┤  (sleeps; restarts at the arrival on car:ended)
-                                                    └─► Shop / Storage / Menu  (launched over the paused Overworld;
-                                                                                overlay:closed resumes it)
+                                                    ├─► Shop / Storage / Menu  (launched over the paused Overworld;
+                                                    │                           overlay:closed resumes it)
+                                                    └─► Story ─► Battle (Story sleeps; wakes on battle:ended)
+                                                     (mystery door;  ├─► StoryTeam / Shop (over the paused Story)
+                                                      replaces it)   └─► Overworld (Volver al juego)
 Hud (save icon) and Debug (F2 overlay) run on top of everything.
 ```
 
@@ -76,7 +79,9 @@ Hud (save icon) and Debug (F2 overlay) run on top of everything.
 | `Overworld` | Draws the zone's map, moves the player, warps, NPCs (wander, talk, enemies spotting the player), wild encounters, the minimap, the Audi. |
 | `Battle` | Drives `src/logic/battle.ts`: menus, playing the events, catching, rewards, losing. |
 | `Car` | The side-scrolling Audi trip. |
-| `Shop`, `Storage`, `Menu` | Overlays over the paused overworld. |
+| `Shop`, `Storage`, `Menu` | Overlays over the paused overworld (the Shop also over the story map, as the story shop). |
+| `Story` | The story realm's board (*Modo historia*): stops, bosses, walking stop to stop, the office menu, boss battles. |
+| `StoryTeam` | Picks the story team, over the paused story map. |
 
 Full per-scene details: `src/scenes/README.md`.
 
@@ -87,6 +92,9 @@ Full per-scene details: `src/scenes/README.md`.
   euros, team slots, team, storage, bag and enemy NPC states. It is the same shape as the save file. Scenes read it
   with `gameState()` and write it back after applying a logic function (e.g. the Battle writes the team and bag back
   when it ends).
+- **Story state** (`src/core/story-session.ts`, type `StoryState` in `src/logic/story.ts`): the story realm's stage,
+  team, bought items, budget left, bosses beaten and stop. Separate from the game state, with its own save slot; the
+  story scenes, the story shop and story battles read and write only this.
 - **Scene-local state**: menus, cursors, animations. Never saved.
 - **Options** (`src/core/options.ts`): volumes and text speed, in `localStorage['flexymon.options']`.
 
@@ -94,8 +102,8 @@ Full per-scene details: `src/scenes/README.md`.
 
 Scenes talk through the typed event bus in `src/core/events.ts`, never by reaching into each other. The
 `GameEvents` interface lists every event and its payload: for example `zone:entered`, `player:moved`,
-`battle:started`, `battle:ended`, `save:request`, `save:done`, `overlay:closed`, `options:changed`, `car:ended` and the `debug:*`
-commands. To add an event, add it to `GameEvents` with a doc comment.
+`battle:started`, `battle:ended`, `save:request`, `save:done`, `overlay:closed`, `options:changed`, `car:ended`,
+`story:entered` and the `debug:*` commands. To add an event, add it to `GameEvents` with a doc comment.
 
 ## Input
 
@@ -112,8 +120,12 @@ Keyboard: arrows / WASD move, Z = A, X = B, Enter = Start, M = minimap, F2 = deb
 `src/core/save-store.ts` wraps `localStorage` (key `flexymon.save.v1`): `load()` returns `none`, `loaded` (with
 migration warnings) or `broken` (the raw text is copied to `flexymon.save.broken`); `write()` and `remove()` never
 throw. `src/logic/save.ts` holds the format, its zod schema and the migration. `src/core/autosave.ts` writes on every
-`save:request` (map change, battle, shop, healer, menu close) and quietly on page hide. Rules:
+`save:request` (map change, battle, shop, healer, menu close, the mystery door) and quietly on page hide. Rules:
 [GAME-RULES.md](GAME-RULES.md) › Saving.
+
+The story realm saves separately: `src/core/story-session.ts` keeps its state and writes `flexymon.story.v1` with
+`saveStory()` (announced as `save:done` `story`) at every story change; `src/logic/story.ts` holds its format and the
+fixes applied on load. Rules: [GAME-RULES.md](GAME-RULES.md) › Story mode.
 
 ## Text
 

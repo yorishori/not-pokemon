@@ -4,7 +4,7 @@
  *
  * F2 (`debug` action) cycles: hidden → info → teleport menu → hidden.
  * - Info: map id, player tile x/y (same numbers as Tiled's status bar), FPS; euros.
- * - Teleport menu: every zone in `zones.json`; up/down choose, A teleports to that zone's `default`
+ * - Teleport menu: every zone in `zones.json` (the story board too, as a plain map to look at); up/down choose, A teleports to that zone's `default`
  *   spawn (event `debug:teleport`), B closes the menu. While the menu is open it emits
  *   `debug:menu { open: true }` and the overworld ignores movement.
  * - Battle entries: below the zones, one "Combate: {name}" line per flexymon in `flexymon.json`;
@@ -14,7 +14,7 @@
  * - Euros: the info lines also show the player's euros ("Euros: {n}").
  * - Options: "NPC: todos listos" sets every enemy NPC to `ready` (`resetAllNpcs`); the menu stays open.
  * - Options: "Borrar partida" (first under "Opciones") emits `debug:delete_save`: `main.ts` stops auto-saving, deletes
- *   `flexymon.save.v1` and reloads the page, which then starts a new game.
+ *   `flexymon.save.v1` and the story realm's `flexymon.story.v1`, and reloads the page, which then starts a new game.
  * - Give (group "Dar", between the battles and "Datos"): "Dar {n} €" adds `DEBUG_GIVE_EUROS` euros, then one
  *   "Dar: {item}" line per item in `items.json` adds one of it (key items too); the menu stays open. Rules in
  *   `src/logic/debug-tools.ts`.

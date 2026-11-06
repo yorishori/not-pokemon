@@ -12,6 +12,8 @@
  *   destination comes from `car.json` (`toMurcia` / `toValencia`), so `toMap` / `toX` / `toY` / `toFacing`
  *   are not used; the OverworldScene checks the unlock pairs and runs the CarScene instead of warping
  *   (`src/logic/car.ts`).
+ * - Portal warps: an `action` warp with the bool property `portal = true` is the mystery door to the story realm.
+ *   It has no target of its own either: the OverworldScene asks and then starts the StoryScene.
  */
 import type { Facing } from '../data/schemas';
 import type { CarDestination } from './car';
@@ -32,6 +34,8 @@ export interface Warp {
   trigger: 'step' | 'action';
   /** Set on the Audi's `action` warp; the trip's destination (`toMap` is then empty and unused). */
   car: CarDestination | null;
+  /** True on the mystery door to the story realm (`toMap` is then empty and unused). */
+  portal: boolean;
 }
 
 /** Where a warp sends the player. */
@@ -62,9 +66,9 @@ export function warpDestination(warp: Warp, from: Point & { facing: Facing }): W
   };
 }
 
-/** Every distinct target tile of a warp (one per tile of its rectangle when an axis is kept); none for a car warp. */
+/** Every distinct target tile of a warp (one per tile of its rectangle when an axis is kept); none for a car or portal warp. */
 export function warpTargetTiles(warp: Warp): Point[] {
-  if (warp.car) return [];
+  if (warp.car || warp.portal) return [];
   const seen = new Set<string>();
   const out: Point[] = [];
   for (let y = warp.y; y < warp.y + warp.height; y += 1) {

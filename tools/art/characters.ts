@@ -218,6 +218,65 @@ export const PLAYER_LOOK: Look = {
 
 /** One look per NPC sprite file name (`assets/sprites/npcs/<name>.png`). */
 export const NPC_LOOKS: Record<string, Look> = {
+  // Story realm bosses (`story.json`).
+  guardiana: {
+    skin: SKIN.mid,
+    hair: HAIR.black,
+    style: 'cap',
+    hat: hex('#606878'),
+    shirt: hex('#8890a0'),
+    pants: hex('#484858'),
+    front: hex('#c03838'),
+  },
+  frutera: {
+    skin: SKIN.tan,
+    hair: HAIR.chestnut,
+    style: 'bun',
+    shirt: hex('#f0a030'),
+    pants: hex('#405890'),
+    front: hex('#58b058'),
+  },
+  fallera: {
+    skin: SKIN.light,
+    hair: HAIR.brown,
+    style: 'bun',
+    shirt: hex('#f0d878'),
+    pants: hex('#e8c050'),
+    front: hex('#f8f0d8'),
+  },
+  paellero: {
+    skin: SKIN.tan,
+    hair: HAIR.grey,
+    style: 'short',
+    shirt: hex('#f8f8f0'),
+    pants: hex('#3868a8'),
+    front: hex('#e8d048'),
+  },
+  cientifica: {
+    skin: SKIN.dark,
+    hair: HAIR.black,
+    style: 'long',
+    shirt: hex('#f8f8f8'),
+    pants: hex('#38a0a8'),
+    front: hex('#e8f0f8'),
+  },
+  jefa_estacion: {
+    skin: SKIN.mid,
+    hair: HAIR.red,
+    style: 'cap',
+    hat: hex('#c03838'),
+    shirt: hex('#283868'),
+    pants: hex('#283868'),
+    tie: hex('#e8c040'),
+  },
+  barquera: {
+    skin: SKIN.tan,
+    hair: HAIR.white,
+    style: 'cap',
+    hat: hex('#d8c078'),
+    shirt: hex('#4878a0'),
+    pants: hex('#584838'),
+  },
   // World redesign: townsfolk, station staff and M.P.
   abuelo: { skin: SKIN.tan, hair: HAIR.white, style: 'bald', shirt: hex('#c8b890'), pants: hex('#585048') },
   vecina: { skin: SKIN.light, hair: HAIR.brown, style: 'bun', shirt: hex('#e070a0'), pants: hex('#4c5070') },

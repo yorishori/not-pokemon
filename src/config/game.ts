@@ -16,6 +16,8 @@ import { OverworldScene } from '../scenes/overworld-scene';
 import { PreloadScene } from '../scenes/preload-scene';
 import { ShopScene } from '../scenes/shop-scene';
 import { StorageScene } from '../scenes/storage-scene';
+import { StoryScene } from '../scenes/story-scene';
+import { StoryTeamScene } from '../scenes/story-team-scene';
 import { TitleScene } from '../scenes/title-scene';
 
 /** Size of one map tile in base pixels. */
@@ -44,7 +46,8 @@ export function createGameConfig(parent: string): Phaser.Types.Core.GameConfig {
     // No physics: movement is grid-based and handled by the game rules.
     // Title, Name and Intro come before the overworld. Shop, Storage and Menu draw over the paused overworld. Hud (the save icon) draws over
     // every game scene; DebugScene is last so it draws on top of everything. Car replaces the sleeping
-    // overworld during the Audi trip, like Battle.
+    // overworld during the Audi trip, like Battle. Story (the story realm's map) replaces the overworld behind the
+    // mystery door, so it comes before the scenes drawn over it (Battle, Shop, StoryTeam).
     scene: [
       BootScene,
       PreloadScene,
@@ -53,11 +56,13 @@ export function createGameConfig(parent: string): Phaser.Types.Core.GameConfig {
       NameScene,
       IntroScene,
       OverworldScene,
+      StoryScene,
       BattleScene,
       CarScene,
       ShopScene,
       StorageScene,
       MenuScene,
+      StoryTeamScene,
       HudScene,
       DebugScene,
     ],

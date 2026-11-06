@@ -277,7 +277,11 @@
     },
     "oficina": {
       "ground": "office",
-      "indoor": true
+      "indoor": true,
+      "portal": {
+        "x": 8,
+        "y": 1
+      }
     },
     "bar_centro": {
       "ground": "floor",
@@ -374,6 +378,10 @@
     "empresa_poligono": {
       "ground": "floor",
       "indoor": true
+    },
+    "historia": {
+      "ground": "grass",
+      "spawn": [4, 6]
     }
   }
 }

@@ -378,5 +378,14 @@
     "music": "assets/audio/music/interior.ogg",
     "indoor": true,
     "encounters": {}
+  },
+  {
+    "id": "historia",
+    "name": "Modo historia",
+    "file": "maps/historia.tmj",
+    "region": "historia",
+    "music": "assets/audio/music/valencia.ogg",
+    "indoor": false,
+    "encounters": {}
   }
 ]

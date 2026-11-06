@@ -5,10 +5,12 @@
  * - every named spawn point in a map's `spawns` layer is walkable;
  * - every warp points at an existing zone, and every tile it can land on there is walkable (for edge
  *   warps that keep the row/column, every tile of the rectangle is checked). Car warps have no target
- *   of their own: they use the car.json endpoints checked above.
+ *   of their own: they use the car.json endpoints checked above. Portal warps (the mystery door) have none either.
  * - every encounter rectangle's `group` exists in its zone's `encounters` in zones.json.
  * - the intro (`intro.json`) plays on the `start.json › spawn` map: the coworker's start tile and every
  *   tile either actor walks onto are walkable, and no walk enters the tile where the other actor stands.
+ * - the story map (`story.json › map`): every stop is walkable, every leg of `path` between two stops is a straight
+ *   line over walkable tiles, and every boss's `stand` tile lies inside the map.
  * {@link mapWarnings} lists the opposite case (a group in zones.json drawn on no rectangle): a warning,
  * not an error, so content can be added to zones.json before the map is drawn.
  * "Walkable" = inside the map and not solid (`src/data/tiled.ts`). Errors use the usual
@@ -21,6 +23,7 @@ import type { MapPoint } from './schemas';
 import { isWalkable, type MapInfo } from './tiled';
 import { warpTargetTiles } from '../logic/warp';
 import { traceIntro } from '../logic/intro';
+import { legTiles, storyStops } from '../logic/story';
 
 /** Why a tile on `mapId` is not a valid place to stand, or `null` if it is. */
 function tileProblem(maps: ReadonlyMap<string, MapInfo>, mapId: string, x: number, y: number): string | null {
@@ -64,6 +67,41 @@ export function checkMaps(data: GameData, maps: ReadonlyMap<string, MapInfo>): D
       });
   }
 
+  // The story map: every stop is walkable, every leg between stops is straight and walkable, bosses stand inside.
+  const { story } = data;
+  const storyInfo = maps.get(story.map);
+  if (storyInfo) {
+    const stops = storyStops(story);
+    stops.forEach((stop, i) => {
+      const path: PropertyKey[] = i === 0 ? ['office'] : ['bosses', i - 1];
+      const problem = tileProblem(maps, story.map, stop.x, stop.y);
+      if (problem) errors.push({ file: 'story.json', path, message: problem });
+      const prev = stops[i - 1];
+      if (prev) {
+        const tiles = legTiles(prev, stop.path, stop);
+        if (!tiles)
+          errors.push({
+            file: 'story.json',
+            path: [...path, 'path'],
+            message: 'every leg must be a straight line',
+          });
+        for (const t of tiles ?? []) {
+          const bad = tileProblem(maps, story.map, t.x, t.y);
+          if (bad) errors.push({ file: 'story.json', path: [...path, 'path'], message: bad });
+        }
+      }
+      if (i > 0) {
+        const { x, y } = story.bosses[i - 1]!.stand;
+        if (x >= storyInfo.width || y >= storyInfo.height)
+          errors.push({
+            file: 'story.json',
+            path: [...path, 'stand'],
+            message: `tile (${x}, ${y}) is outside map "${story.map}"`,
+          });
+      }
+    });
+  }
+
   for (const zone of data.zones.values()) {
     const info = maps.get(zone.id);
     if (!info) continue;
@@ -83,6 +121,7 @@ export function checkMaps(data: GameData, maps: ReadonlyMap<string, MapInfo>): D
     for (const warp of info.warps) {
       const path = ['warps', warp.name];
       if (warp.car) continue; // The Audi drives to car.json › toMurcia / toValencia (checked above).
+      if (warp.portal) continue; // The mystery door opens the story realm (story.json), not a map tile.
       if (!data.zones.has(warp.toMap)) {
         errors.push({ file: zone.file, path, message: `unknown map "${warp.toMap}"` });
         continue;

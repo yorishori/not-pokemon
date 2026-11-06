@@ -10,7 +10,7 @@ and fixes.
 | --- | --- |
 | `docs/ARCHITECTURE.md` | How the code fits together. |
 | `docs/GAME-RULES.md` | Every game rule and the design pillars. |
-| `docs/CONTENT.md` | Content JSON: flexymon, attacks, items, NPCs, dialogue, enemies, encounters, shops, debug menu. |
+| `docs/CONTENT.md` | Content JSON: flexymon, attacks, items, NPCs, dialogue, enemies, encounters, shops, the story realm, debug menu. |
 | `docs/MAPS.md` | Maps, zones, the world builder, Tiled format, tileset ids. |
 | `docs/ART.md` | Art style, the code-drawn art pipeline, asset sizes, audio. |
 | `docs/SPRITES.md` | The brief for artists: every sprite file, its size, layout and delivery. |
@@ -73,7 +73,8 @@ Folder `README.md` files are the file-by-file reference (`src/*/README.md`, `pub
 - Stats HP / Ataque / Defensa / Velocidad. No types, no levels, no XP. Max 3 attacks.
 - Controls: desktop arrows/WASD, Z = A, X = B, Enter = Start, M = minimap. Mobile: on-screen D-pad, A, B, Start, Mapa;
   landscape only. **No gamepad.**
-- Saving: `localStorage`, one slot, key `flexymon.save.v1`. No backend. Static site only.
+- Saving: `localStorage`, one slot, key `flexymon.save.v1`; the story realm (Modo historia) keeps its own slot,
+  `flexymon.story.v1`. No backend. Static site only.
 
 Changing a pillar is a design decision: ask the user first.
 
@@ -99,16 +100,17 @@ Screen: base resolution **512 × 288** (16 × 9 tiles of 32 px), `pixelArt: true
 ```
 README.md, CONTRIBUTING.md   overview and contributor workflow
 docs/                        the guides listed above
-public/data/                 game content JSON (11 files; guide: docs/CONTENT.md)
+public/data/                 game content JSON (12 files; guide: docs/CONTENT.md)
 public/maps/                 Tiled maps, one per zone (generated from tools/world/); test/ = frozen test maps
 public/assets/               sprites, tilesets, ui (title, minimaps), audio (sfx, music)
 public/test-world/data/      frozen test content (do not add real content)
 src/main.ts                  creates the Phaser game, wiring, __E2E__ hooks
 src/config/game.ts           resolution, scene list
-src/core/                    log, rng, events, input, save store, autosave, session, options, ui sounds
+src/core/                    log, rng, events, input, save store, autosave, session, story session, options, ui sounds
 src/data/                    loader, schemas/ (zod), cross-refs, map checks, Tiled parser, atlas
 src/logic/                   pure game rules, NO Phaser imports, 100% unit-tested
-src/scenes/                  Boot, Preload, Error, Title, Name, Intro, Overworld, Battle, Car, Shop, Storage, Menu, Hud, Debug
+src/scenes/                  Boot, Preload, Error, Title, Name, Intro, Overworld, Story, Battle, Car, Shop, Storage, Menu,
+                             StoryTeam, Hud, Debug
 src/ui/                      DialogBox, ChoiceBox, GridMenu, HpBar, frame, Minimap, TouchControls, RotateScreen
 src/world/                   Player, NpcActor, zone map drawing, camera, music
 src/i18n/                    es.json (every UI string) and t()

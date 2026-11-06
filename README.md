@@ -3,7 +3,9 @@
 A browser monster-collecting RPG in the style of the Game Boy Color classics, set in a cartoon version of the
 Valencia region (Spain). Wander the huerta, the city, the beach and, if you get the right items for the office Audi,
 the Murcia desert. Meet wild **flexymon**, fight enemy trainers in turn-based battles, collect and merge creatures,
-earn euros and buy items. There is no story and no ending: just wander and collect.
+earn euros and buy items. The main game has no story and no ending: just wander and collect. For a quick game, a
+mystery door in the office leads to the **Modo historia**: pick a team of four, spend a fixed budget on items, and
+beat seven bosses in a row on a board-game map of Valencia's landmarks.
 
 - Plays in any modern browser, on desktop and on phones (landscape, on-screen controls).
 - A fully static site: no server, no accounts; the game saves in the browser.

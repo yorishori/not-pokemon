@@ -55,7 +55,7 @@ The front shows a face (eyes, mouth, blush); the back shows the object's rear (c
 
 Folder: `public/assets/sprites/flexymon/`, e.g. `raton_front.png`, `raton_back.png`, `raton_icon.png`.
 
-## Player and NPCs (34 walk sheets)
+## Player and NPCs (41 walk sheets)
 
 Every character is one 64 × 128 walk sheet: 8 frames of 32 × 32, designed at 16 × 16 per frame and scaled ×2.
 Characters are about 1 tile wide and 1.5 tiles tall, with a big head and a short body.
@@ -111,6 +111,18 @@ share one sheet (`npcs.json › sprite`), so each sheet should read as a type:
 | `turista.png` | Tourist, tour guide (5) |
 | `vecina.png` | Neighbour, horchata seller, holidaymaker, vendor (6) |
 
+The story realm's seven bosses (`story.json › bosses`) each have their own sheet, in the same folder:
+
+| File | Boss (landmark) |
+| --- | --- |
+| `guardiana.png` | Guard in grey armour (Torres de Serranos) |
+| `frutera.png` | Fruit seller with an apron (Mercado Central) |
+| `fallera.png` | Fallera in a festival dress (the bullring) |
+| `paellero.png` | Paella cook (Malvarrosa beach) |
+| `cientifica.png` | Scientist in a lab coat (Ciutat de les Arts) |
+| `jefa_estacion.png` | Station master with a cap (Estació del Nord) |
+| `barquera.png` | Old boatwoman with a straw hat (the Albufera) |
+
 ## Items (8 icons)
 
 Item icons are 16 × 16, drawn at that size (not doubled), and shown in the bag, the shops and battle. Folder:
@@ -127,9 +139,9 @@ Item icons are 16 × 16, drawn at that size (not doubled), and shown in the bag,
 | `carnet.png` | Carnet de conducir (driving licence) | Key item |
 | `cafe_doble.png` | Café doble (double coffee) | Key item for the drive to Murcia |
 
-## World tileset (224 tiles, one sheet)
+## World tileset (226 tiles, one sheet)
 
-The whole world is drawn from one sheet, `public/assets/tilesets/world.png`: 256 × 896 px, 8 columns × 28 rows of
+The whole world is drawn from one sheet, `public/assets/tilesets/world.png`: 256 × 928 px, 8 columns × 29 rows of
 32 × 32 tiles. Design each tile at 16 × 16 and scale ×2. Tile ids count left to right, top to bottom
 (id = row × 8 + column).
 
@@ -144,7 +156,7 @@ hand-drawn tileset is in, never run `npm run world -- --force`: it redraws the s
 | 32–66 | Roof edges and corners, in four roof colours (terracotta, blue, teal, ochre) |
 | 67–91 | Building façades: wall edges, windows, white walls, a second door |
 | 92–167 | Borders where grass meets path, plaza paving, sand and water (edges, corners, shore foam) |
-| 168–223 | Special tiles: huerta crops, sea, stations and trains, the office and its logo, the Turia park, shops, beach, lampposts |
+| 168–225 | Special tiles: huerta crops, sea, stations and trains, the office and its logo, the Turia park, shops, beach, lampposts; 224 the office's mystery door (a violet door with a "?"), 225 a stop on the story map's path (a round stone on sand) |
 
 Base tiles (0–31):
 
@@ -201,7 +213,7 @@ Suggested order, by how often players see it:
 2. Tileset base tiles 0–31, then their borders and variants
 3. Title screen
 4. NPC sheets, starting with the bosses (`jefe`, `mp`) and `companera`
-5. Items, the car and the special tiles 168–223
+5. Items, the car and the special tiles 168–225
 
 Keep the layered source files (Aseprite, Photoshop…) too: hand-made PNGs replace the code-drawn art, so later edits
 are made in those sources.

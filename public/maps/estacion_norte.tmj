@@ -807,10 +807,10 @@
    "name": "world",
    "image": "../assets/tilesets/world.png",
    "imagewidth": 256,
-   "imageheight": 896,
+   "imageheight": 928,
    "tilewidth": 32,
    "tileheight": 32,
-   "tilecount": 224,
+   "tilecount": 232,
    "columns": 8,
    "margin": 0,
    "spacing": 0,
@@ -2177,6 +2177,16 @@
     },
     {
      "id": 223,
+     "properties": [
+      {
+       "name": "solid",
+       "type": "bool",
+       "value": true
+      }
+     ]
+    },
+    {
+     "id": 224,
      "properties": [
       {
        "name": "solid",

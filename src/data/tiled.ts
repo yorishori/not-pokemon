@@ -11,7 +11,8 @@
  *   the player's column / row), `toFacing` (optional) and `trigger` (`step` or `action`); see
  *   `src/logic/warp.ts`. Rectangles may lie one tile outside the map (edge warps). A warp with the
  *   string property `car` (`murcia` or `valencia`) is the Audi: it must use `trigger = action`, and its
- *   destination comes from car.json, so it needs no `toMap`.
+ *   destination comes from car.json, so it needs no `toMap`. A warp with the bool property `portal = true` is
+ *   the mystery door to the story realm (`story.json`): it must use `trigger = action` and needs no `toMap`.
  * - Object layer `encounters`: rectangles with the string properties `group` (a key of the zone's
  *   `encounters` in zones.json) and `mode` (`tiles`: only tiles with `encounter = true`; `all`: every
  *   tile, urban crowds); see `src/logic/encounter.ts`. The object name is only used in messages.
@@ -149,12 +150,15 @@ const warpPropsSchema = z
     toFacing: facingSchema.nullable(),
     trigger: z.enum(['step', 'action']),
     car: z.enum(['murcia', 'valencia']).nullable(),
+    portal: z.boolean(),
   })
   .superRefine((w, ctx) => {
-    if (w.car === null && w.toMap === '')
+    if (w.car === null && !w.portal && w.toMap === '')
       ctx.addIssue({ code: 'custom', path: ['toMap'], message: 'needs a toMap property' });
     if (w.car !== null && w.trigger !== 'action')
       ctx.addIssue({ code: 'custom', path: ['trigger'], message: 'a car warp needs trigger = action' });
+    if (w.portal && w.trigger !== 'action')
+      ctx.addIssue({ code: 'custom', path: ['trigger'], message: 'a portal warp needs trigger = action' });
   });
 
 /** Read one warp object; throws a message naming the warp if a property is missing or wrong. */
@@ -167,6 +171,7 @@ function parseWarp(o: TiledObject, index: number, map: TiledMap, mapFile: string
     toFacing: prop('toFacing'),
     trigger: prop('trigger'),
     car: prop('car'),
+    portal: prop('portal') === true,
   });
   const label = o.name ? `"${o.name}"` : `#${index}`;
   if (!parsed.success) {

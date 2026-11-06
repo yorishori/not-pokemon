@@ -20,6 +20,7 @@ const door: Warp = {
   toFacing: 'up',
   trigger: 'step',
   car: null,
+  portal: false,
 };
 const edge: Warp = {
   ...door,
@@ -66,6 +67,8 @@ describe('warps', () => {
     expect(warpTargetTiles(door)).toEqual([{ x: 4, y: 7 }]);
     // A car warp lands on the car.json endpoints, not on tiles of its own.
     expect(warpTargetTiles({ ...car, car: 'murcia' })).toEqual([]);
+    // The mystery door opens the story realm: no tiles either.
+    expect(warpTargetTiles({ ...car, portal: true })).toEqual([]);
     const tiles = warpTargetTiles(edge);
     expect(tiles).toHaveLength(20);
     expect(tiles[12]).toEqual({ x: 0, y: 12 });

@@ -7,6 +7,7 @@ import {
   clampEuros,
   lossPenalty,
   maxBuyQuantity,
+  refundPrice,
   rollReward,
   sell,
   sellPrice,
@@ -60,6 +61,12 @@ describe('economy', () => {
     expect(sell(0, { cafe: 1 }, cafe, 2)).toEqual({ ok: false, reason: 'not_enough_items' });
     expect(sell(0, { cafe: 1 }, cafe, 0)).toEqual({ ok: false, reason: 'bad_quantity' });
     expect(maxBuyQuantity(0, {}, { ...cafe, price: 0 })).toBe(99);
+  });
+
+  it('the story shop buys back at the full price (refundPrice); key items still cannot be sold', () => {
+    expect(refundPrice(cafe)).toBe(50);
+    expect(sell(0, { cafe: 2 }, cafe, 2, refundPrice)).toEqual({ ok: true, euros: 100, items: {} });
+    expect(refundPrice({ ...cafe, effect: { type: 'key' } })).toBeNull();
   });
 
   it('selling never goes above the euro cap', () => {

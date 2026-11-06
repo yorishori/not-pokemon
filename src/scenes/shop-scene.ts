@@ -16,6 +16,10 @@
  *   shop: it asks for an auto-save (`save:request` `shop`), emits `overlay:closed` and stops; the
  *   overworld resumes.
  * - The scene computes no price or limit: rows, limits and totals come from `src/logic/shop.ts`.
+ * - Story realm shop (started with `{ story: true }` from the StoryScene's office menu): it sells
+ *   `story.json › shop`, spends the story budget into the story loadout (`src/core/story-session.ts`), buys back at
+ *   the full price (`refundPrice`), shows "Presupuesto: {n} €", and on closing saves the story slot instead of
+ *   asking for a main-game save.
  * - Sounds: menus and the Sí / No box play their own; the picker plays `cursor` / `confirm` / `cancel`; a
  *   refusal ("No tienes suficiente dinero.") plays `error`; a done purchase or sale plays `money`.
  */
@@ -29,12 +33,16 @@ import { gameState, setGameState } from '../core/session';
 import { getGameData } from '../data/game-data';
 import { t } from '../i18n';
 import { QTY_BIG_STEP } from '../logic/constants';
-import { buy, sell } from '../logic/economy';
+import { buy, refundPrice, sell, type ShopResult } from '../logic/economy';
+import type { Inventory } from '../logic/inventory';
+import { storyBuy, storySell } from '../logic/story';
+import { saveStory, setStoryState, storyState } from '../core/story-session';
 import {
   buyRows,
   rowError,
   sellRows,
   stepQuantity,
+  stockRows,
   totalPrice,
   type ShopMode,
   type ShopRow,
@@ -47,10 +55,11 @@ import { framedBox } from '../ui/frame';
 /** Scene key of {@link ShopScene}. */
 export const SHOP_SCENE = 'Shop';
 
-/** How to open a shop. */
-export interface ShopSceneData {
-  shopId: string;
-}
+/** How to open a shop: a shop of `shops.json`, or the story realm's shop. */
+export type ShopSceneData = { shopId: string; story?: false } | { story: true };
+
+/** The `shopId` reported for the story realm's shop. */
+export const STORY_SHOP_ID = 'story';
 
 /** What the shop screen is doing. */
 export type ShopUi = 'main' | 'list' | 'quantity' | 'confirm' | 'message' | 'closed';
@@ -88,6 +97,8 @@ const TEXT_STYLE: Phaser.Types.GameObjects.Text.TextStyle = {
 /** The shop. */
 export class ShopScene extends Phaser.Scene {
   private shopId = '';
+  /** True for the story realm's shop (story budget and loadout, full-price buy-back). */
+  private story = false;
   private ui: ShopUi = 'main';
   private mode: ShopMode | null = null;
   private rows: ShopRow[] = [];
@@ -109,7 +120,8 @@ export class ShopScene extends Phaser.Scene {
   }
 
   create(data: ShopSceneData): void {
-    this.shopId = data.shopId;
+    this.story = data.story === true;
+    this.shopId = data.story ? STORY_SHOP_ID : data.shopId;
     this.mode = null;
     this.row = null;
     this.quantity = 0;
@@ -132,11 +144,21 @@ export class ShopScene extends Phaser.Scene {
   }
 
   override update(_time: number, delta: number): void {
-    this.moneyText.setText(t('shop.money', { n: gameState().euros }));
+    this.moneyText.setText(t(this.story ? 'story.budget' : 'shop.money', { n: this.money() }));
     if (this.dialog.isOpen) this.dialog.update(delta);
     else if (this.menu.isOpen) this.menu.update();
     else if (this.choice.isOpen) this.choice.update();
     else if (this.ui === 'quantity') this.updateQuantity();
+  }
+
+  /** Euros to spend: the player's, or the story budget left. */
+  private money(): number {
+    return this.story ? storyState().euros : gameState().euros;
+  }
+
+  /** The bag sold from: the player's, or the story loadout. */
+  private bag(): Inventory {
+    return this.story ? storyState().loadout : gameState().items;
   }
 
   /** A framed panel at (`x`, `y`) holding `children`. */
@@ -177,11 +199,23 @@ export class ShopScene extends Phaser.Scene {
   /** The buy or sell list; B goes back to the main menu. */
   private openList(mode: ShopMode, initial: number): void {
     const data = getGameData();
-    const gs = gameState();
+    const euros = this.money();
+    const bag = this.bag();
     this.mode = mode;
     this.row = null;
     this.qtyBox.setVisible(false);
-    this.rows = mode === 'buy' ? buyRows(this.shopId, data, gs.euros, gs.items) : sellRows(data, gs.items);
+    if (mode === 'buy')
+      this.rows = this.story
+        ? stockRows(
+            data.story.shop.flatMap((id) => {
+              const item = data.items.get(id);
+              return item ? [item] : [];
+            }),
+            euros,
+            bag,
+          )
+        : buyRows(this.shopId, data, euros, bag);
+    else this.rows = sellRows(data, bag, this.story ? refundPrice : undefined);
     if (this.rows.length === 0) {
       return this.say(t('shop.nothing_to_sell'), () => this.openMain(1));
     }
@@ -224,7 +258,7 @@ export class ShopScene extends Phaser.Scene {
   /** An item was chosen: open the picker, or say why it cannot be bought / sold. */
   private pick(row: ShopRow): void {
     const mode = this.mode ?? 'buy';
-    const err = rowError(mode, row, gameState().euros);
+    const err = rowError(mode, row, this.money());
     if (err) {
       uiSound('error');
       return this.say(t(`shop.${err}`), () => this.openList(mode, this.listCursor));
@@ -289,13 +323,19 @@ export class ShopScene extends Phaser.Scene {
 
   /** Run the purchase or sale through the economy rules and write the result to the game state. */
   private trade(mode: ShopMode, row: ShopRow, total: number): void {
-    const gs = gameState();
     const item = getGameData().items.get(row.id);
     if (!item) return this.openList(mode, this.listCursor);
-    const result =
-      mode === 'buy'
-        ? buy(gs.euros, gs.items, item, this.quantity)
-        : sell(gs.euros, gs.items, item, this.quantity);
+    let result: ShopResult;
+    if (this.story) {
+      const ss = storyState();
+      result = mode === 'buy' ? storyBuy(ss, item, this.quantity) : storySell(ss, item, this.quantity);
+    } else {
+      const gs = gameState();
+      result =
+        mode === 'buy'
+          ? buy(gs.euros, gs.items, item, this.quantity)
+          : sell(gs.euros, gs.items, item, this.quantity);
+    }
     if (!result.ok) {
       const key =
         result.reason === 'not_enough_items' || result.reason === 'bad_quantity'
@@ -304,7 +344,8 @@ export class ShopScene extends Phaser.Scene {
       uiSound('error');
       return this.say(t(`shop.${key}`), () => this.openList(mode, this.listCursor));
     }
-    setGameState({ ...gs, euros: result.euros, items: result.items });
+    if (this.story) setStoryState({ ...storyState(), euros: result.euros, loadout: result.items });
+    else setGameState({ ...gameState(), euros: result.euros, items: result.items });
     uiSound('money');
     log(`Shop: ${mode} ${this.quantity} ${row.id} for ${total}`);
     const text =
@@ -316,7 +357,8 @@ export class ShopScene extends Phaser.Scene {
   private close(): void {
     this.ui = 'closed';
     log(`Shop: close ${this.shopId}`);
-    events.emit('save:request', { reason: 'shop' });
+    if (this.story) saveStory();
+    else events.emit('save:request', { reason: 'shop' });
     events.emit('overlay:closed', { scene: SHOP_SCENE });
     this.scene.stop();
   }
@@ -329,7 +371,7 @@ export class ShopScene extends Phaser.Scene {
       shopId: this.shopId,
       ui: this.ui,
       mode: this.mode,
-      euros: gameState().euros,
+      euros: this.money(),
       menu:
         this.menu.state() ??
         (c ? { options: c.options.map((label) => ({ label, enabled: true })), cursor: c.cursor } : null),

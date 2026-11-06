@@ -54,7 +54,12 @@ export function buyRows(
   euros: number,
   items: Readonly<Inventory>,
 ): ShopRow[] {
-  return shopStock(shopId, data).map((item) => ({
+  return stockRows(shopStock(shopId, data), euros, items);
+}
+
+/** The buy list of any `stock` (a shop's, or the story realm's `story.json › shop`), in order. */
+export function stockRows(stock: readonly Item[], euros: number, items: Readonly<Inventory>): ShopRow[] {
+  return stock.map((item) => ({
     id: item.id,
     name: item.name,
     description: item.description,
@@ -64,13 +69,20 @@ export function buyRows(
   }));
 }
 
-/** The sell list: every item in the bag, in bag order; unsellable ones have `price: null` and limit 0. */
-export function sellRows(data: ShopData, items: Readonly<Inventory>): ShopRow[] {
+/**
+ * The sell list: every item in the bag, in bag order; unsellable ones have `price: null` and limit 0. Prices come
+ * from `priceOf` (half the price by default; the story shop passes `refundPrice`).
+ */
+export function sellRows(
+  data: Pick<ShopData, 'items'>,
+  items: Readonly<Inventory>,
+  priceOf: (item: Item) => number | null = sellPrice,
+): ShopRow[] {
   return Object.keys(items).flatMap((id) => {
     const item = data.items.get(id);
     const owned = itemCount(items, id);
     if (!item || owned <= 0) return [];
-    const price = sellPrice(item);
+    const price = priceOf(item);
     return [
       {
         id,
