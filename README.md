@@ -49,6 +49,7 @@ for the debug menu (teleport, battles, items, reload data).
 | [docs/CONTENT.md](docs/CONTENT.md) | Adding flexymon, attacks, items, NPCs and dialogue, enemy trainers, encounters, shops… |
 | [docs/MAPS.md](docs/MAPS.md) | Editing and expanding the world: layouts, new zones, buildings, doors, encounter areas. |
 | [docs/ART.md](docs/ART.md) | The art style, the code-drawn art pipeline, sizes, sounds and music. |
+| [docs/SPRITES.md](docs/SPRITES.md) | The brief for artists: every sprite file, its size, layout and delivery. |
 | [docs/TESTING.md](docs/TESTING.md) | Unit and browser tests, test hooks, the frozen test world. |
 | [docs/DEPLOY.md](docs/DEPLOY.md) | Building and hosting the static site; the offline single-file build. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Workflow, conventions and the checklist every change must pass. |

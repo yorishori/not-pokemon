@@ -5,7 +5,7 @@ Thanks for helping! New flexymon, NPCs, zones, art, bug fixes and tests are all 
 
 - content (creatures, attacks, items, NPCs, dialogue, shops): [docs/CONTENT.md](docs/CONTENT.md)
 - the world (maps, zones, buildings): [docs/MAPS.md](docs/MAPS.md)
-- art and sound: [docs/ART.md](docs/ART.md)
+- art and sound: [docs/ART.md](docs/ART.md); the sprite brief for artists: [docs/SPRITES.md](docs/SPRITES.md)
 - code: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/GAME-RULES.md](docs/GAME-RULES.md)
 - tests: [docs/TESTING.md](docs/TESTING.md)
 

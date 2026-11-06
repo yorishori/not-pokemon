@@ -127,6 +127,8 @@ product brand (`C.f`); the brand colour could not be confirmed, so change `C.f` 
 
 ## Replacing art with hand-made files
 
+The full list of sprite files to draw, with sizes and layouts, is the artists' brief in [SPRITES.md](SPRITES.md).
+
 Drop a PNG at the same path, the same size and (for sheets) the same layout. Nothing else changes; the generators
 will not overwrite it (unless someone runs them with `--force`, so mention hand-made files in your PR). For the
 tileset, keep the tile order. `npm run build` repacks the atlas automatically.

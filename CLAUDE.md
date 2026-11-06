@@ -13,6 +13,7 @@ and fixes.
 | `docs/CONTENT.md` | Content JSON: flexymon, attacks, items, NPCs, dialogue, enemies, encounters, shops, debug menu. |
 | `docs/MAPS.md` | Maps, zones, the world builder, Tiled format, tileset ids. |
 | `docs/ART.md` | Art style, the code-drawn art pipeline, asset sizes, audio. |
+| `docs/SPRITES.md` | The brief for artists: every sprite file, its size, layout and delivery. |
 | `docs/TESTING.md` | Unit and browser tests, the frozen test world. |
 | `docs/DEPLOY.md` | Building and hosting. |
 
@@ -35,7 +36,7 @@ Folder `README.md` files are the file-by-file reference (`src/*/README.md`, `pub
    - a short doc comment (`/** ... */`) on every exported function, class, type and scene, saying what it does and
      any non-obvious rule it follows;
    - rules → `docs/GAME-RULES.md`; content fields, NPC types, debug commands → `docs/CONTENT.md`; maps, zones, tiles,
-     world builder → `docs/MAPS.md`; art, sizes, audio → `docs/ART.md`; scenes, events, modules, patterns →
+     world builder → `docs/MAPS.md`; art, sizes, audio → `docs/ART.md`; sprite files, NPC sheets, items, tiles → `docs/SPRITES.md`; scenes, events, modules, patterns →
      `docs/ARCHITECTURE.md`; tests and `__E2E__` hooks → `docs/TESTING.md` and `tests/README.md`; npm scripts →
      `README.md` and `tools/README.md`; validation rules → `public/data/README.md`; new files → the folder's
      `README.md`;
